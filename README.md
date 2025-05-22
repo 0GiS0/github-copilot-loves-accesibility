@@ -24,6 +24,57 @@ The demo page in this repository intentionally includes the following accessibil
 3. If possible, test the page using a screen reader.
 4. Use browser developer tools to inspect accessibility issues.
 
+## 🧪 Manual Accessibility Testing with Accessibility Insights
+
+[Accessibility Insights](https://accessibilityinsights.io/) is the recommended tool for manual accessibility verification of this demo page. It helps identify accessibility issues that automated tests might miss and provides guidance on fixing them.
+
+### 🔍 Installing Accessibility Insights
+
+1. **Accessibility Insights for Web** (recommended for this demo):
+   - Install the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni) or [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/accessibility-insights-fo/nlgdhundjgnlbnjacdfdgpbmnjdpkged)
+   - Once installed, you'll see the Accessibility Insights icon in your browser toolbar
+
+2. For other platforms, visit [accessibilityinsights.io](https://accessibilityinsights.io/) to download:
+   - Accessibility Insights for Windows
+   - Accessibility Insights for Android
+
+### 🔧 Running Tests with Accessibility Insights
+
+After installing Accessibility Insights for Web:
+
+1. **FastPass** (quick assessment):
+   - Click the Accessibility Insights icon in your browser toolbar
+   - Select "FastPass" from the menu
+   - Click "Start" to scan the current page
+   - Review automated checks and tab stops results
+
+2. **Assessment** (comprehensive evaluation):
+   - Click the Accessibility Insights icon
+   - Select "Assessment" from the menu
+   - Click "Start assessment" 
+   - Follow the guided process to perform manual checks
+   - Complete all test steps for a thorough evaluation
+
+3. **Ad hoc tools** (focused testing):
+   - Click the Accessibility Insights icon
+   - Select specific tools like "Color", "Headings", or "Landmarks"
+   - These tools help analyze specific aspects of the page
+
+### 📊 Interpreting Results
+
+- **Failures:** Review each failed check to understand what accessibility issues exist
+- **Instances:** Examine specific elements that are causing accessibility problems
+- **How to fix:** Follow the provided guidance to address each issue
+- **Why it matters:** Learn why each issue is important for accessibility
+
+### ⏱️ When to Perform Manual Verification
+
+- During development when implementing or modifying UI components
+- Before submitting a pull request that includes UI changes
+- As part of code review for UI-related changes
+- After fixing automated accessibility test failures
+- Before major releases or deployments
+
 ### 💻 Using Dev Container
 
 This repository includes a dev container configuration with Live Server extension:
