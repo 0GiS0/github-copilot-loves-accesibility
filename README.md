@@ -24,6 +24,19 @@ The demo page in this repository intentionally includes the following accessibil
 3. If possible, test the page using a screen reader.
 4. Use browser developer tools to inspect accessibility issues.
 
+### Using Dev Container
+
+This repository includes a dev container configuration with Live Server extension:
+
+1. Open the repository in Visual Studio Code with the Dev Containers extension installed.
+2. When prompted, click "Reopen in Container" or use the command palette: `Dev Containers: Reopen in Container`.
+3. Once the container is built and running, click "Go Live" in the status bar to start the Live Server.
+4. The page will automatically open in your browser and refresh when changes are made.
+
+### GitHub Pages
+
+This demo is available on GitHub Pages once the GitHub Actions workflow has completed. The site will be deployed at: https://0GiS0.github.io/github-copilot-loves-accesibility/
+
 ## Purpose
 
 This demo is intended to be used as an educational tool to help developers understand common accessibility mistakes and the importance of designing and building with accessibility in mind from the start.
