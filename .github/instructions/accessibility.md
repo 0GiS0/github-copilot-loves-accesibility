@@ -1,3 +1,8 @@
+---
+applyTo: '**'
+---
+
+
 # GitHub Copilot Accessibility Instructions
 
 ## ⚠️ Accessibility is a Priority in This Project
