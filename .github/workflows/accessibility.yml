@@ -1,0 +1,38 @@
+name: Accessibility Testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  axe:
+    name: Test with axe-core
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install -g @axe-core/cli http-server
+        
+      - name: Start HTTP server in background
+        run: http-server -p 8080 . &
+        
+      - name: Wait for server to start
+        run: sleep 3
+        
+      - name: Run axe-core accessibility tests
+        run: axe http://localhost:8080 --exit
+        
+      - name: Stop HTTP server
+        if: always()
+        run: killall node || true
