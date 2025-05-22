@@ -1,0 +1,268 @@
+/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /* No focus outlines for keyboard navigation */
+    outline: none;
+}
+
+/* Remove focus indicators from all interactive elements */
+a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Header and Navigation */
+header {
+    background-color: #333;
+    padding: 1rem;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-left: 1rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Main content */
+main {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+/* Features section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Using color only to convey status information */
+.status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.available {
+    background-color: #00c853; /* Green for available */
+}
+
+.unavailable {
+    background-color: #f44336; /* Red for unavailable */
+}
+
+.coming-soon {
+    background-color: #ff9800; /* Orange for coming soon */
+}
+
+/* Poor contrast section */
+.poor-contrast {
+    background-color: #f5f5f5; /* Very light gray */
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+}
+
+.poor-contrast h4 {
+    color: #d3d3d3; /* Light gray on light gray background - poor contrast */
+    margin-top: 0;
+}
+
+.poor-contrast p {
+    color: #a9a9a9; /* Another poor contrast example */
+}
+
+.poor-contrast button {
+    background-color: #e0e0e0; /* Light gray */
+    color: #a9a9a9; /* Gray text on light gray button - poor contrast */
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Contact form section */
+.contact-form {
+    margin-bottom: 2rem;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.contact-form textarea {
+    min-height: 150px;
+}
+
+/* Non-semantic button - no focus states */
+.submit-btn {
+    display: inline-block;
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Carousel/Gallery section */
+.gallery {
+    margin-bottom: 2rem;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item {
+    display: none;
+    text-align: center;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.carousel-nav {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+/* Notification area */
+.notifications {
+    margin-bottom: 2rem;
+}
+
+#notification-area {
+    min-height: 100px;
+    border: 1px dashed #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.notification {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-left: 4px solid #4a90e2;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+footer a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer li {
+    margin-bottom: 0.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 2rem;
+    color: #aaa;
+}
