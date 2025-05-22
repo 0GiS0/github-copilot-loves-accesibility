@@ -31,7 +31,20 @@ jobs:
         run: sleep 3
         
       - name: Run axe-core accessibility tests
-        run: axe http://localhost:8080 --exit
+        run: |
+          echo "🔍 Running accessibility tests with axe-core..."
+          axe http://localhost:8080 --verbose --timeout=60000 --exit --save axe-results.json || true
+          echo "📋 Summary of accessibility issues:"
+          cat axe-results.json | grep -A 10 '"violations":'
+          echo "❌ Full details are available in the axe-results.json artifact"
+        
+      - name: Upload accessibility results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: accessibility-results
+          path: axe-results.json
+          retention-days: 7
         
       - name: Stop HTTP server
         if: always()

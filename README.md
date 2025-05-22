@@ -38,6 +38,44 @@ The demo page in this repository intentionally includes the following accessibil
    - Accessibility Insights for Windows
    - Accessibility Insights for Android
 
+## 🤖 Automated Accessibility Testing with GitHub Actions
+
+This repository includes an automated accessibility testing workflow using axe-core, which runs on every push to the main branch and on pull requests.
+
+### 📋 About the Accessibility Tests
+
+The automated tests:
+- Use axe-core, a leading accessibility testing engine
+- Check the deployed web page for WCAG 2.1 compliance issues
+- Generate detailed reports of any accessibility violations
+- Fail the workflow if critical accessibility issues are found
+
+### 📊 Viewing Test Results
+
+1. Navigate to the "Actions" tab in the GitHub repository
+2. Select the "Accessibility Testing" workflow
+3. Choose the most recent workflow run
+4. Review the test output in the "Run axe-core accessibility tests" step
+5. Download the detailed JSON report from the "Artifacts" section
+
+### 🔄 Running Tests Locally
+
+To run the same accessibility tests locally:
+
+1. Install Node.js and npm
+2. Install the required tools:
+   ```bash
+   npm install -g @axe-core/cli http-server
+   ```
+3. Start a local server in the repository root:
+   ```bash
+   http-server -p 8080 .
+   ```
+4. In another terminal, run the accessibility tests:
+   ```bash
+   axe http://localhost:8080 --exit
+   ```
+
 ### 🔧 Running Tests with Accessibility Insights
 
 After installing Accessibility Insights for Web:
