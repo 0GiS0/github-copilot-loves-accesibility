@@ -1,7 +1,9 @@
 {
     "name": "Accessibility Demo",
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18",
-    "forwardPorts": [5500],
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:0-20",
+    "forwardPorts": [
+        5500
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -13,6 +15,7 @@
             }
         }
     },
-    "postCreateCommand": "npm install -g http-server",
+    "postCreateCommand": "npm install -g http-server @axe-core/cli",
+    "postStartCommand": "http-server -p 5500",
     "remoteUser": "node"
 }
