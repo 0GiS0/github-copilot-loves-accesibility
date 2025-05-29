@@ -24,13 +24,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
           
       - name: Install dependencies
         run: |
           npm install -g @axe-core/cli http-server
           sudo apt-get update && sudo apt-get install -y chromium jq
-          sudo ln -s /usr/bin/chromium /usr/bin/google-chrome
         
       - name: Install browser-driver-manager
         run: npm install -g browser-driver-manager
