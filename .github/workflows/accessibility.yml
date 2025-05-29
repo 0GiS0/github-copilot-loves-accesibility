@@ -47,7 +47,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
-          axe http://localhost:5500 --verbose --timeout=60000 --exit --save axe-results.json
+          axe http://localhost:5500 --chrome-options="--user-data-dir=/tmp/axe-$$" --verbose --timeout=60000 --exit --save axe-results.json
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
