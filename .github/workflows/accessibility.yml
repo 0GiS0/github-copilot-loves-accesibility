@@ -38,9 +38,10 @@ jobs:
         run: sleep 3
         
       - name: Run axe-core accessibility tests
+        continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
-          axe http://localhost:8080 --verbose --timeout=60000 --exit --save axe-results.json || true
+          axe http://localhost:8080 --verbose --timeout=60000 --exit --save axe-results.json
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
@@ -131,6 +132,23 @@ jobs:
           name: accessibility-results
           path: axe-results.json
           retention-days: 7
+        
+      - name: Fail workflow if accessibility violations found
+        if: always()
+        run: |
+          if [ -f axe-results.json ]; then
+            violations=$(cat axe-results.json | jq '.violations | length')
+            if [ "$violations" -gt 0 ]; then
+              echo "❌ Workflow failed: Found $violations accessibility violation(s)"
+              echo "🔧 Please fix the accessibility issues and re-run the workflow"
+              exit 1
+            else
+              echo "✅ No accessibility violations found - workflow passed"
+            fi
+          else
+            echo "⚠️  No results file found - treating as failure"
+            exit 1
+          fi
         
       - name: Stop HTTP server
         if: always()
