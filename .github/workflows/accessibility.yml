@@ -15,85 +15,60 @@ permissions:
 jobs:
   axe:
     name: Test with axe-core
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     
     steps:
-      - name: "🔄 Checkout repository"
+      - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: "🟢 Set up Node.js"
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           
-      - name: "💾 Cache npm global"
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-global-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-global-
-        
-      - name: "📦 Install dependencies"
+      - name: Install dependencies
         run: |
-          # npm install -g @axe-core/cli http-server
-          npm install -g pa11y http-server jq
-          # sudo apt-get update && sudo apt-get install -y firefox jq
+          npm install -g @axe-core/cli http-server
+          sudo apt-get update && sudo apt-get install -y chromium jq
         
-      # - name: "🧰 Install browser-driver-manager"
-      #   run: npm install -g browser-driver-manager
+      - name: Install browser-driver-manager
+        run: npm install -g browser-driver-manager
 
-      # - name: "🌐 Install compatible Chrome and ChromeDriver"
-      #   run: npx browser-driver-manager install chrome
+      - name: Install compatible Chrome and ChromeDriver
+        run: npx browser-driver-manager install chrome
         
-      - name: "🚀 Start HTTP server in background"
+      - name: Start HTTP server in background
         run: http-server -p 5500 . &
         
-      - name: "⏳ Wait for server to start"
-        run: sleep 3       
+      - name: Wait for server to start
+        run: sleep 3
+        
+      - name: Kill Chrome/Chromium processes (cleanup)
+        run: |
+          pkill -f chromium || true
+          pkill -f chrome || true
 
-
-      # - name: "🦾 Run axe-core accessibility tests"
-      #   continue-on-error: true
-      #   run: |
-      #     echo "🔍 Running accessibility tests with axe-core..."
-      #     # axe http://localhost:5500 --chrome-options="--user-data-dir=/tmp/axe-$$ --no-sandbox" --verbose --save axe-results.json
-      #     axe http://localhost:5500 --browser firefox --verbose --save axe-results.json
-      #     echo "📋 Summary of accessibility issues:"
-      #     cat axe-results.json | grep -A 10 '"violations":'
-      #     echo "❌ Full details are available in the axe-results.json artifact"
-
-      - name: "🦾 Run pa11y accessibility tests"
+      - name: Run axe-core accessibility tests
         continue-on-error: true
         run: |
-          echo "🔍 Running accessibility tests with pa11y..."
-          pa11y http://localhost:5500 --reporter json > pa11y-results.json
+          echo "🔍 Running accessibility tests with axe-core..."
+          axe http://localhost:5500 --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage" --verbose --save axe-results.json
           echo "📋 Summary of accessibility issues:"
-          cat pa11y-results.json | jq '.issues | length' || echo "No violations found"
-          echo "❌ Full details are available in the pa11y-results.json artifact"
-
-      - name: "Cat pa11y results"
-        if: always()
-        run: |
-          if [ -f pa11y-results.json ]; then
-            echo "📋 Accessibility test results:"
-            cat pa11y-results.json | jq '.'
-          else
-            echo "⚠️ No accessibility test results found."
-          fi
-
-      - name: "📝 Parse accessibility results for PR comment"
+          cat axe-results.json | grep -A 10 '"violations":'
+          echo "❌ Full details are available in the axe-results.json artifact"
+        
+      - name: Parse accessibility results for PR comment
         if: github.event_name == 'pull_request'
         id: parse-results
         run: |
-          if [ -f pa11y-results.json ]; then
-            violations=$(cat pa11y-results.json | jq '.issues | length')
+          if [ -f axe-results.json ]; then
+            violations=$(cat axe-results.json | jq '.violations | length')
             echo "violations=$violations" >> $GITHUB_OUTPUT
             
             if [ "$violations" -gt 0 ]; then
               echo "has_violations=true" >> $GITHUB_OUTPUT
               # Create a summary of violations
-              cat pa11y-results.json | jq -r '.issues[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
+              cat axe-results.json | jq -r '.violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
               echo "summary<<EOF" >> $GITHUB_OUTPUT
               cat violations_summary.txt >> $GITHUB_OUTPUT
               echo "EOF" >> $GITHUB_OUTPUT
@@ -105,7 +80,7 @@ jobs:
             echo "has_violations=false" >> $GITHUB_OUTPUT
           fi
         
-      - name: "💬 Comment on PR with accessibility results"
+      - name: Comment on PR with accessibility results
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
@@ -161,7 +136,7 @@ jobs:
               });
             }
         
-      - name: "📤 Upload accessibility results"
+      - name: Upload accessibility results
         if: always()
         uses: actions/upload-artifact@v4.6.2
         with:
@@ -169,7 +144,7 @@ jobs:
           path: axe-results.json
           retention-days: 7
         
-      - name: "🚫 Fail workflow if accessibility violations found"
+      - name: Fail workflow if accessibility violations found
         if: always()
         run: |
           if [ -f axe-results.json ]; then
@@ -186,6 +161,6 @@ jobs:
             exit 1
           fi
         
-      - name: "🛑 Stop HTTP server"
+      - name: Stop HTTP server
         if: always()
         run: killall node || true
