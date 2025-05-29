@@ -38,7 +38,7 @@ jobs:
         run: npx browser-driver-manager install chrome
         
       - name: Start HTTP server in background
-        run: http-server -p 8080 . &
+        run: http-server -p 5500 . &
         
       - name: Wait for server to start
         run: sleep 3
@@ -47,7 +47,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
-          axe http://localhost:8080 --verbose --timeout=60000 --exit --save axe-results.json
+          axe http://localhost:5500 --verbose --timeout=60000 --exit --save axe-results.json
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
