@@ -3,8 +3,6 @@ applyTo: '**'
 ---
 
 
-# GitHub Copilot Accessibility Instructions
-
 ## ⚠️ Accessibility is a Priority in This Project
 
 All code generated for this project must adhere to the Web Content Accessibility Guidelines (WCAG) 2.1. Accessibility is not an afterthought—it is a core requirement. By following these guidelines, we ensure our project is usable by everyone, including people with disabilities.
@@ -69,8 +67,6 @@ Content must be robust enough to be interpreted reliably by a wide variety of us
 - Always maintain logical focus order in interactive applications
 - Always test with keyboard-only navigation
 
-## 🔍 Further Resources
+## IMPORTANT
 
-Always encourage the team to review the [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/) when developing new features. This resource helps identify applicable guidelines and how to meet them.
-
-Remember: Making our project accessible benefits everyone, not just users with disabilities. It improves usability, SEO, and reaches a wider audience. Let's build with accessibility in mind from the start! 🌍✨
+Please execute pa11y and axe-core every time you make changes to the codebase to ensure compliance with accessibility standards. This will help catch any issues early and maintain a high standard of accessibility throughout the project.
