@@ -7,6 +7,11 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   axe:
     name: Test with axe-core
@@ -22,7 +27,9 @@ jobs:
           node-version: '18'
           
       - name: Install dependencies
-        run: npm install -g @axe-core/cli http-server
+        run: |
+          npm install -g @axe-core/cli http-server
+          sudo apt-get update && sudo apt-get install -y jq
         
       - name: Start HTTP server in background
         run: http-server -p 8080 . &
@@ -37,6 +44,85 @@ jobs:
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
+        
+      - name: Parse accessibility results for PR comment
+        if: github.event_name == 'pull_request'
+        id: parse-results
+        run: |
+          if [ -f axe-results.json ]; then
+            violations=$(cat axe-results.json | jq '.violations | length')
+            echo "violations=$violations" >> $GITHUB_OUTPUT
+            
+            if [ "$violations" -gt 0 ]; then
+              echo "has_violations=true" >> $GITHUB_OUTPUT
+              # Create a summary of violations
+              cat axe-results.json | jq -r '.violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
+              echo "summary<<EOF" >> $GITHUB_OUTPUT
+              cat violations_summary.txt >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
+            else
+              echo "has_violations=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "violations=0" >> $GITHUB_OUTPUT
+            echo "has_violations=false" >> $GITHUB_OUTPUT
+          fi
+        
+      - name: Comment on PR with accessibility results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const violations = '${{ steps.parse-results.outputs.violations }}';
+            const hasViolations = '${{ steps.parse-results.outputs.has_violations }}' === 'true';
+            
+            let comment = '## 🔍 Accessibility Test Results\n\n';
+            
+            if (hasViolations) {
+              comment += `❌ **Found ${violations} accessibility violation(s)**\n\n`;
+              comment += '### Issues Found:\n';
+              comment += '${{ steps.parse-results.outputs.summary }}';
+              comment += '\n\n📋 **Next Steps:**\n';
+              comment += '- Review the detailed JSON report in the workflow artifacts\n';
+              comment += '- Fix the accessibility issues listed above\n';
+              comment += '- Re-run the tests to verify fixes\n\n';
+              comment += '💡 **Learn more:** [Web Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)';
+            } else {
+              comment += '✅ **No accessibility violations found!**\n\n';
+              comment += '🎉 Great job following accessibility best practices!';
+            }
+            
+            comment += '\n\n---\n*This comment was generated automatically by the accessibility testing workflow.*';
+            
+            // Check if there's already a comment from this action
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const existingComment = comments.data.find(comment => 
+              comment.body.includes('🔍 Accessibility Test Results') && 
+              comment.user.type === 'Bot'
+            );
+            
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: comment
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
         
       - name: Upload accessibility results
         if: always()

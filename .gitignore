@@ -1,0 +1,12 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Accessibility testing artifacts
+axe-results.json
+violations_summary.txt
+
+# Temporary files
+*.tmp
+.DS_Store
