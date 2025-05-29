@@ -53,17 +53,31 @@ jobs:
         id: parse-results
         run: |
           if [ -f axe-results.json ]; then
-            violations=$(cat axe-results.json | jq '.violations | length')
-            echo "violations=$violations" >> $GITHUB_OUTPUT
-            if [ "$violations" -gt 0 ]; then
-              echo "has_violations=true" >> $GITHUB_OUTPUT
-              # Create a summary of violations
-              cat axe-results.json | jq -r '.violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
-              echo "summary<<EOF" >> $GITHUB_OUTPUT
-              cat violations_summary.txt >> $GITHUB_OUTPUT
-              echo "EOF" >> $GITHUB_OUTPUT
+            # Check if axe-results.json is an array or object
+            if jq -e 'type == "array"' axe-results.json > /dev/null; then
+              violations=$(cat axe-results.json | jq '.[0].violations | length')
+              if [ "$violations" -gt 0 ]; then
+                echo "has_violations=true" >> $GITHUB_OUTPUT
+                cat axe-results.json | jq -r '.[0].violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
+                echo "summary<<EOF" >> $GITHUB_OUTPUT
+                cat violations_summary.txt >> $GITHUB_OUTPUT
+                echo "EOF" >> $GITHUB_OUTPUT
+              else
+                echo "has_violations=false" >> $GITHUB_OUTPUT
+              fi
+              echo "violations=$violations" >> $GITHUB_OUTPUT
             else
-              echo "has_violations=false" >> $GITHUB_OUTPUT
+              violations=$(cat axe-results.json | jq '.violations | length')
+              if [ "$violations" -gt 0 ]; then
+                echo "has_violations=true" >> $GITHUB_OUTPUT
+                cat axe-results.json | jq -r '.violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' > violations_summary.txt
+                echo "summary<<EOF" >> $GITHUB_OUTPUT
+                cat violations_summary.txt >> $GITHUB_OUTPUT
+                echo "EOF" >> $GITHUB_OUTPUT
+              else
+                echo "has_violations=false" >> $GITHUB_OUTPUT
+              fi
+              echo "violations=$violations" >> $GITHUB_OUTPUT
             fi
           else
             echo "violations=0" >> $GITHUB_OUTPUT
