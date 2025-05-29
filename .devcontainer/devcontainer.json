@@ -7,7 +7,8 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "ritwickdey.LiveServer"
+                "ritwickdey.LiveServer",
+                "redhat.vscode-yaml"
             ],
             "settings": {
                 "liveServer.settings.donotShowInfoMsg": true,

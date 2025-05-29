@@ -72,6 +72,16 @@ jobs:
           cat pa11y-results.json | jq '.issues | length' || echo "No violations found"
           echo "❌ Full details are available in the pa11y-results.json artifact"
 
+      - name: "Cat pa11y results"
+        if: always()
+        run: |
+          if [ -f pa11y-results.json ]; then
+            echo "📋 Accessibility test results:"
+            cat pa11y-results.json | jq '.'
+          else
+            echo "⚠️ No accessibility test results found."
+          fi
+
       - name: "📝 Parse accessibility results for PR comment"
         if: github.event_name == 'pull_request'
         id: parse-results
