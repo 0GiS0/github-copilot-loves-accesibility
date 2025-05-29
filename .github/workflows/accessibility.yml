@@ -37,7 +37,7 @@ jobs:
       - name: "📦 Install dependencies"
         run: |
           npm install -g @axe-core/cli http-server
-          sudo apt-get update && sudo apt-get install -y chromium jq
+          sudo apt-get update && sudo apt-get install -y firefox jq
         
       - name: "🧰 Install browser-driver-manager"
         run: npm install -g browser-driver-manager
@@ -49,18 +49,15 @@ jobs:
         run: http-server -p 5500 . &
         
       - name: "⏳ Wait for server to start"
-        run: sleep 3
-        
-      - name: "🧹 Kill Chrome/Chromium processes (cleanup)"
-        run: |
-          pkill -f chromium || true
-          pkill -f chrome || true
+        run: sleep 3       
+
 
       - name: "🦾 Run axe-core accessibility tests"
         continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
-          axe http://localhost:5500 --chrome-options="--user-data-dir=/tmp/axe-$$ --no-sandbox" --verbose --save axe-results.json
+          # axe http://localhost:5500 --chrome-options="--user-data-dir=/tmp/axe-$$ --no-sandbox" --verbose --save axe-results.json
+          axe http://localhost:5500 --browser firefox --verbose --save axe-results.json
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
