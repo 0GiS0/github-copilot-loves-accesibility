@@ -130,20 +130,19 @@ jobs:
         run: |
           if [ -f axe-results.json ]; then
             violations=$(cat axe-results.json | jq '.[0].violations | length')
+            echo "### 🦾 Accessibility Violations Summary" >> $GITHUB_STEP_SUMMARY
             if [ "$violations" -gt 0 ]; then
-              echo "❌ Workflow failed: Found $violations accessibility violation(s)"
-              echo "🔧 Please fix the accessibility issues and re-run the workflow"
-              # Mostrar resumen de violaciones en el summary de GitHub Actions
-              echo "### Accessibility Violations Summary" >> $GITHUB_STEP_SUMMARY
-              cat axe-results.json | jq -r '.[0].violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' >> $GITHUB_STEP_SUMMARY
+              echo "❌ **Found $violations accessibility violation(s):**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              cat axe-results.json | jq -r '.[0].violations[] | "- **Impact:** \(.impact | ascii_upcase)\n  - **Description:** \(.description)\n  - **Instances:** \(.nodes | length)\n  - **Help:** [More info](\(.helpUrl))\n"' >> $GITHUB_STEP_SUMMARY
+              echo "---" >> $GITHUB_STEP_SUMMARY
+              echo "🔧 Please fix the accessibility issues and re-run the workflow" >> $GITHUB_STEP_SUMMARY
               exit 1
             else
-              echo "✅ No accessibility violations found - workflow passed"
-              echo "### Accessibility Violations Summary" >> $GITHUB_STEP_SUMMARY
-              echo "✅ No accessibility violations found!" >> $GITHUB_STEP_SUMMARY
+              echo "✅ **No accessibility violations found!**" >> $GITHUB_STEP_SUMMARY
+              echo "🎉 Great job following accessibility best practices!" >> $GITHUB_STEP_SUMMARY
             fi
           else
-            echo "⚠️  No results file found - treating as failure"
             echo "⚠️  No results file found - treating as failure" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
