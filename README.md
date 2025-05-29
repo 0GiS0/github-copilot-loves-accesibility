@@ -48,10 +48,17 @@ The automated tests:
 - Use axe-core, a leading accessibility testing engine
 - Check the deployed web page for WCAG 2.1 compliance issues
 - Generate detailed reports of any accessibility violations
+- Comment on pull requests with accessibility test results
 - Fail the workflow if critical accessibility issues are found
 
 ### 📊 Viewing Test Results
 
+**For Pull Requests:**
+- The workflow automatically comments on PRs with accessibility test results
+- Comments include a summary of violations and actionable next steps
+- Comments are updated if the tests are run again on the same PR
+
+**For detailed analysis:**
 1. Navigate to the "Actions" tab in the GitHub repository
 2. Select the "Accessibility Testing" workflow
 3. Choose the most recent workflow run
