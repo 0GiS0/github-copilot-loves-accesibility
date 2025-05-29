@@ -23,24 +23,28 @@
     </header>
 
     <main id="main-content">
-        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h3 -->
+        <!-- Proper heading hierarchy -->
         <h1>Contact ACME Corporation</h1>
-        <h3>We'd Love to Hear From You</h3>
+        <h2>We'd Love to Hear From You</h2>
         
-        <!-- ACCESSIBILITY ISSUE: Image without alt text -->
-        <img src="https://placehold.co/600x300" class="hero-image">
+        <!-- Hero image with descriptive alt text -->
+        <img src="https://placehold.co/600x300" class="hero-image" alt="ACME Corporation contact center with friendly customer service representatives">
         
-        <!-- ACCESSIBILITY ISSUE: Form lacks proper labels, uses only placeholders -->
+        <!-- Accessible contact form with proper labels and grouping -->
         <section class="contact-form">
-            <h4>Get in Touch</h4>
+            <h3>Get in Touch</h3>
             <form>
-                <!-- ACCESSIBILITY ISSUE: No labels, relying only on placeholders -->
-                <input type="text" placeholder="Your Name">
-                <input type="email" placeholder="Email">
-                <input type="tel" placeholder="Phone Number">
+                <label for="contact-name-detail">Your Name</label>
+                <input type="text" id="contact-name-detail" name="name" placeholder="Your Name" required aria-required="true">
                 
-                <!-- ACCESSIBILITY ISSUE: Select without proper labeling -->
-                <select>
+                <label for="contact-email-detail">Email</label>
+                <input type="email" id="contact-email-detail" name="email" placeholder="Email" required aria-required="true">
+                
+                <label for="contact-phone">Phone Number</label>
+                <input type="tel" id="contact-phone" name="phone" placeholder="Phone Number">
+                
+                <label for="contact-source">How did you hear about us?</label>
+                <select id="contact-source" name="source" required aria-required="true">
                     <option value="" disabled selected>How did you hear about us?</option>
                     <option value="search">Search Engine</option>
                     <option value="social">Social Media</option>
@@ -48,77 +52,108 @@
                     <option value="ad">Advertisement</option>
                 </select>
                 
-                <!-- ACCESSIBILITY ISSUE: Required field not indicated accessibly -->
-                <input type="text" placeholder="Company Name (Required)" required>
+                <label for="contact-company">Company Name <span aria-label="required">*</span></label>
+                <input type="text" id="contact-company" name="company" placeholder="Company Name" required aria-required="true">
                 
-                <!-- ACCESSIBILITY ISSUE: Checkbox without proper labeling -->
-                <div>
-                    <input type="checkbox" id="newsletter">
-                    Subscribe to newsletter
+                <!-- Properly labeled checkbox -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                    <label for="newsletter">Subscribe to newsletter</label>
                 </div>
                 
-                <!-- ACCESSIBILITY ISSUE: Radio buttons without proper grouping/fieldset -->
-                <div>
-                    <input type="radio" name="contact-time" value="morning">Morning
-                    <input type="radio" name="contact-time" value="afternoon">Afternoon
-                    <input type="radio" name="contact-time" value="evening">Evening
-                </div>
+                <!-- Radio buttons with proper fieldset and legend -->
+                <fieldset>
+                    <legend>Preferred contact time</legend>
+                    <div class="radio-group">
+                        <input type="radio" id="contact-morning" name="contact-time" value="morning">
+                        <label for="contact-morning">Morning</label>
+                        
+                        <input type="radio" id="contact-afternoon" name="contact-time" value="afternoon">
+                        <label for="contact-afternoon">Afternoon</label>
+                        
+                        <input type="radio" id="contact-evening" name="contact-time" value="evening">
+                        <label for="contact-evening">Evening</label>
+                    </div>
+                </fieldset>
                 
-                <textarea placeholder="Your Message"></textarea>
+                <label for="contact-message-detail">Your Message</label>
+                <textarea id="contact-message-detail" name="message" placeholder="Your Message" required aria-required="true"></textarea>
                 
-                <!-- ACCESSIBILITY ISSUE: Non-semantic button using div instead of button element -->
-                <div class="submit-btn">Send Message</div>
+                <!-- Semantic button element -->
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Poor color contrast in this section -->
+        <!-- Improved contrast section -->
         <section class="poor-contrast">
-            <h5>Contact Information</h5>
+            <h3>Contact Information</h3>
             <p>Phone: 555-123-4567</p>
             <p>Email: info@acmecorp.com</p>
             <p>Address: 123 Business St, City, State 12345</p>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Iframe without title attribute -->
+        <!-- Accessible map section with proper iframe labeling -->
         <section class="map-section">
-            <!-- ACCESSIBILITY ISSUE: Another heading level skip -->
-            <h2>Find Us</h2>
+            <h3>Find Us</h3>
             
-            <!-- ACCESSIBILITY ISSUE: Iframe without title for screen readers -->
+            <!-- Iframe with proper title for accessibility -->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4..." 
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    title="Google Maps showing ACME Corporation office location at 123 Business St">
             </iframe>
             
-            <!-- ACCESSIBILITY ISSUE: Using color only to convey information -->
+            <!-- Directions with both color and text indicators -->
             <div class="directions">
                 <div>
-                    <span class="direction-dot red"></span>
-                    Take Highway 1 North
+                    <span class="direction-dot red" aria-label="Step 1"></span>
+                    <strong>Step 1:</strong> Take Highway 1 North
                 </div>
                 <div>
-                    <span class="direction-dot green"></span>
-                    Exit at Business Boulevard
+                    <span class="direction-dot green" aria-label="Step 2"></span>
+                    <strong>Step 2:</strong> Exit at Business Boulevard
                 </div>
                 <div>
-                    <span class="direction-dot blue"></span>
-                    We're in the third building on the right
+                    <span class="direction-dot blue" aria-label="Step 3"></span>
+                    <strong>Step 3:</strong> We're in the third building on the right
                 </div>
             </div>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Custom interactive elements without keyboard navigation -->
+        <!-- Accessible FAQ section with proper ARIA attributes -->
         <section class="faq-section">
-            <h6>Frequently Asked Questions</h6>
+            <h3>Frequently Asked Questions</h3>
             
-            <!-- ACCESSIBILITY ISSUE: Custom accordion without proper ARIA attributes -->
+            <!-- Accessible accordion with proper keyboard navigation -->
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(0)">What are your business hours?</div>
-                <div class="faq-answer" id="faq-0">Monday-Friday 9AM-5PM, Saturday 10AM-3PM</div>
+                <button class="faq-question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-0"
+                        id="faq-button-0">
+                    What are your business hours?
+                </button>
+                <div class="faq-answer" 
+                     id="faq-0" 
+                     role="region" 
+                     aria-labelledby="faq-button-0"
+                     hidden>
+                    Monday-Friday 9AM-5PM, Saturday 10AM-3PM
+                </div>
             </div>
             
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(1)">Do you offer support?</div>
-                <div class="faq-answer" id="faq-1">Yes, we provide 24/7 customer support via phone and email.</div>
+                <button class="faq-question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-1"
+                        id="faq-button-1">
+                    Do you offer support?
+                </button>
+                <div class="faq-answer" 
+                     id="faq-1" 
+                     role="region" 
+                     aria-labelledby="faq-button-1"
+                     hidden>
+                    Yes, we provide 24/7 customer support via phone and email.
+                </div>
             </div>
         </section>
     </main>
@@ -126,11 +161,11 @@
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h4>About Us</h4>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -138,13 +173,21 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- ACCESSIBILITY ISSUE: Social media icons without proper labels -->
+                <h4>Follow Us</h4>
+                <!-- Social media icons with accessible labels -->
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Follow us on Facebook">
+                        <span class="sr-only">Facebook</span>
+                    </a>
+                    <a href="#" class="icon twitter" aria-label="Follow us on Twitter">
+                        <span class="sr-only">Twitter</span>
+                    </a>
+                    <a href="#" class="icon instagram" aria-label="Follow us on Instagram">
+                        <span class="sr-only">Instagram</span>
+                    </a>
+                    <a href="#" class="icon linkedin" aria-label="Follow us on LinkedIn">
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
                 </div>
             </div>
         </div>

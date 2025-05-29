@@ -138,17 +138,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Contact page FAQ functionality (inaccessible)
-function toggleFAQ(index) {
-    const answer = document.getElementById('faq-' + index);
-    if (answer) {
-        if (answer.style.display === 'block') {
-            answer.style.display = 'none';
-        } else {
-            answer.style.display = 'block';
-        }
-    }
-    // No ARIA attributes or keyboard handling
+// Contact page accessible FAQ functionality
+function initializeFAQ() {
+    const faqButtons = document.querySelectorAll('.faq-question');
+    
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const expanded = button.getAttribute('aria-expanded') === 'true';
+            const target = document.getElementById(button.getAttribute('aria-controls'));
+            
+            button.setAttribute('aria-expanded', !expanded);
+            target.hidden = expanded;
+            
+            // Announce the state change to screen readers
+            if (!expanded) {
+                target.focus();
+            }
+        });
+        
+        // Add keyboard support
+        button.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                button.click();
+            }
+        });
+    });
+}
+
+// Initialize FAQ when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeFAQ);
+} else {
+    initializeFAQ();
 }
 
 // Products page filter functionality (inaccessible)
@@ -250,27 +272,70 @@ function filterGallery(category) {
     // No screen reader announcements about filter results
 }
 
-// About page values tab functionality (inaccessible)
-function showValue(valueType) {
-    // Hide all value content
-    const valueContents = document.querySelectorAll('.value-content');
-    valueContents.forEach(content => {
-        content.classList.remove('active');
+// About page accessible values tab functionality
+function initializeTabs() {
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+    
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            switchTab(tab, index);
+        });
+        
+        tab.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    const prevIndex = (index - 1 + tabs.length) % tabs.length;
+                    switchTab(tabs[prevIndex], prevIndex);
+                    tabs[prevIndex].focus();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    const nextIndex = (index + 1) % tabs.length;
+                    switchTab(tabs[nextIndex], nextIndex);
+                    tabs[nextIndex].focus();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    switchTab(tabs[0], 0);
+                    tabs[0].focus();
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    switchTab(tabs[tabs.length - 1], tabs.length - 1);
+                    tabs[tabs.length - 1].focus();
+                    break;
+            }
+        });
     });
     
-    // Remove active class from all tab buttons
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => btn.classList.remove('active'));
-    
-    // Show selected content and activate button
-    const selectedContent = document.getElementById(valueType);
-    if (selectedContent) {
-        selectedContent.classList.add('active');
+    function switchTab(selectedTab, selectedIndex) {
+        // Reset all tabs
+        tabs.forEach((tab, i) => {
+            tab.setAttribute('aria-selected', 'false');
+            tab.classList.remove('active');
+            tab.setAttribute('tabindex', '-1');
+            
+            if (tabPanels[i]) {
+                tabPanels[i].hidden = true;
+            }
+        });
+        
+        // Activate selected tab
+        selectedTab.setAttribute('aria-selected', 'true');
+        selectedTab.classList.add('active');
+        selectedTab.setAttribute('tabindex', '0');
+        
+        if (tabPanels[selectedIndex]) {
+            tabPanels[selectedIndex].hidden = false;
+        }
     }
-    
-    // Add active class to clicked button
-    event.target.classList.add('active');
-    
-    // No ARIA attributes or keyboard navigation
-    // No screen reader announcements about tab changes
+}
+
+// Initialize tabs when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTabs);
+} else {
+    initializeTabs();
 }
