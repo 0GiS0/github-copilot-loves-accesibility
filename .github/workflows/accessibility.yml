@@ -18,37 +18,29 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: "🔄 Checkout repository"
         uses: actions/checkout@v4
-        
-      - name: Set up Node.js
+      - name: "🟢 Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      - name: Install dependencies
+      - name: "💾 Install dependencies"
         run: |
           npm install -g @axe-core/cli http-server
           sudo apt-get update && sudo apt-get install -y chromium jq
-        
-      - name: Install browser-driver-manager
+      - name: "🧰 Install browser-driver-manager"
         run: npm install -g browser-driver-manager
-
-      - name: Install compatible Chrome and ChromeDriver
+      - name: "🌐 Install compatible Chrome and ChromeDriver"
         run: npx browser-driver-manager install chrome
-        
-      - name: Start HTTP server in background
+      - name: "🚀 Start HTTP server in background"
         run: http-server -p 5500 . &
-        
-      - name: Wait for server to start
+      - name: "⏳ Wait for server to start"
         run: sleep 3
-        
-      - name: Kill Chrome/Chromium processes (cleanup)
+      - name: "🧹 Kill Chrome/Chromium processes (cleanup)"
         run: |
           pkill -f chromium || true
           pkill -f chrome || true
-
-      - name: Run axe-core accessibility tests
+      - name: "🦾 Run axe-core accessibility tests"
         continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
@@ -56,15 +48,13 @@ jobs:
           echo "📋 Summary of accessibility issues:"
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
-        
-      - name: Parse accessibility results for PR comment
+      - name: "📝 Parse accessibility results for PR comment"
         if: github.event_name == 'pull_request'
         id: parse-results
         run: |
           if [ -f axe-results.json ]; then
             violations=$(cat axe-results.json | jq '.violations | length')
             echo "violations=$violations" >> $GITHUB_OUTPUT
-            
             if [ "$violations" -gt 0 ]; then
               echo "has_violations=true" >> $GITHUB_OUTPUT
               # Create a summary of violations
@@ -79,17 +69,14 @@ jobs:
             echo "violations=0" >> $GITHUB_OUTPUT
             echo "has_violations=false" >> $GITHUB_OUTPUT
           fi
-        
-      - name: Comment on PR with accessibility results
+      - name: "💬 Comment on PR with accessibility results"
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
             const violations = '${{ steps.parse-results.outputs.violations }}';
             const hasViolations = '${{ steps.parse-results.outputs.has_violations }}' === 'true';
-            
             let comment = '## 🔍 Accessibility Test Results\n\n';
-            
             if (hasViolations) {
               comment += `❌ **Found ${violations} accessibility violation(s)**\n\n`;
               comment += '### Issues Found:\n';
@@ -103,21 +90,17 @@ jobs:
               comment += '✅ **No accessibility violations found!**\n\n';
               comment += '🎉 Great job following accessibility best practices!';
             }
-            
             comment += '\n\n---\n*This comment was generated automatically by the accessibility testing workflow.*';
-            
             // Check if there's already a comment from this action
             const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
             });
-            
             const existingComment = comments.data.find(comment => 
               comment.body.includes('🔍 Accessibility Test Results') && 
               comment.user.type === 'Bot'
             );
-            
             if (existingComment) {
               // Update existing comment
               await github.rest.issues.updateComment({
@@ -135,32 +118,35 @@ jobs:
                 body: comment
               });
             }
-        
-      - name: Upload accessibility results
+      - name: "📤 Upload accessibility results"
         if: always()
         uses: actions/upload-artifact@v4.6.2
         with:
           name: accessibility-results
           path: axe-results.json
           retention-days: 7
-        
-      - name: Fail workflow if accessibility violations found
+      - name: "🚫 Fail workflow if accessibility violations found"
         if: always()
         run: |
           if [ -f axe-results.json ]; then
-            violations=$(cat axe-results.json | jq '.violations | length')
+            violations=$(cat axe-results.json | jq '.[0].violations | length')
             if [ "$violations" -gt 0 ]; then
               echo "❌ Workflow failed: Found $violations accessibility violation(s)"
               echo "🔧 Please fix the accessibility issues and re-run the workflow"
+              # Mostrar resumen de violaciones en el summary de GitHub Actions
+              echo "### Accessibility Violations Summary" >> $GITHUB_STEP_SUMMARY
+              cat axe-results.json | jq -r '.[0].violations[] | "- **\(.impact | ascii_upcase)**: \(.description) (\(.nodes | length) instance(s))"' >> $GITHUB_STEP_SUMMARY
               exit 1
             else
               echo "✅ No accessibility violations found - workflow passed"
+              echo "### Accessibility Violations Summary" >> $GITHUB_STEP_SUMMARY
+              echo "✅ No accessibility violations found!" >> $GITHUB_STEP_SUMMARY
             fi
           else
             echo "⚠️  No results file found - treating as failure"
+            echo "⚠️  No results file found - treating as failure" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
-        
-      - name: Stop HTTP server
+      - name: "🛑 Stop HTTP server"
         if: always()
         run: killall node || true
