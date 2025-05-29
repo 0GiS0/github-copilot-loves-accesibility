@@ -528,7 +528,7 @@ footer {
 }
 
 footer a {
-    color: #ddd;
+    color: #e0e0e0; /* Improved contrast: lighter gray for better readability */
     text-decoration: none;
 }
 
@@ -558,7 +558,7 @@ footer li {
 .copyright {
     text-align: center;
     margin-top: 2rem;
-    color: #aaa;
+    color: #ccc; /* Improved contrast: lighter gray on dark background */
 }
 
 /* Contact page styles */
