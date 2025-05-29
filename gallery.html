@@ -23,163 +23,203 @@
     </header>
 
     <main id="main-content">
-        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
+        <!-- Proper heading hierarchy -->
         <h1>ACME Gallery</h1>
-        <h4>Showcase of Our Work and Achievements</h4>
+        <h2>Showcase of Our Work and Achievements</h2>
         
-        <!-- ACCESSIBILITY ISSUE: Hero banner without alt text -->
-        <img src="https://placehold.co/800x300" class="hero-image">
+        <!-- Hero banner with descriptive alt text -->
+        <img src="https://placehold.co/800x300" class="hero-image" alt="ACME Corporation gallery banner showcasing portfolio of completed projects and achievements">
         
-        <!-- ACCESSIBILITY ISSUE: Image gallery with multiple accessibility problems -->
+        <!-- Accessible image gallery -->
         <section class="image-gallery">
             <h2>Project Gallery</h2>
             
-            <!-- ACCESSIBILITY ISSUE: Gallery grid with images missing alt text -->
-            <div class="gallery-grid">
-                <!-- ACCESSIBILITY ISSUE: All images missing alt attributes -->
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+            <!-- Gallery grid with accessible images -->
+            <div class="gallery-grid" role="list" aria-label="Project gallery">
+                <!-- Gallery items with descriptive alt text -->
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="E-commerce website project featuring modern design and user-friendly interface">
                     <div class="gallery-overlay">
-                        <!-- ACCESSIBILITY ISSUE: Non-semantic clickable element, mouse-only interaction -->
-                        <div class="view-btn" onclick="openModal(0)">View</div>
+                        <!-- Semantic button elements -->
+                        <button class="view-btn" onclick="openModal(0)" aria-label="View full-size image of e-commerce website project">View Project Details</button>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="Mobile banking application project showing secure transaction interface">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(1)">View</div>
+                        <button class="view-btn" onclick="openModal(1)" aria-label="View full-size image of mobile banking application">View Project Details</button>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="Corporate branding project featuring logo design and brand identity">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(2)">View</div>
+                        <button class="view-btn" onclick="openModal(2)" aria-label="View full-size image of corporate branding project">View Project Details</button>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="Data analytics dashboard project with interactive charts and graphs">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(3)">View</div>
+                        <button class="view-btn" onclick="openModal(3)" aria-label="View full-size image of data analytics dashboard">View Project Details</button>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="Content management system project with intuitive admin interface">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(4)">View</div>
+                        <button class="view-btn" onclick="openModal(4)" aria-label="View full-size image of content management system">View Project Details</button>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="gallery-item" role="listitem">
+                    <img src="https://placehold.co/300x200" alt="Social media platform project featuring community engagement tools">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(5)">View</div>
+                        <button class="view-btn" onclick="openModal(5)" aria-label="View full-size image of social media platform">View Project Details</button>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Filter section using color-only indicators -->
+        <!-- Accessible filter section with both color and text indicators -->
         <section class="gallery-filters">
-            <!-- ACCESSIBILITY ISSUE: Skipping heading level h2 to h5 -->
-            <h5>Filter by Category</h5>
+            <h3>Filter by Category</h3>
             
-            <div class="filter-buttons">
-                <!-- ACCESSIBILITY ISSUE: Custom filter buttons without proper roles or keyboard navigation -->
-                <div class="filter-btn active" onclick="filterGallery('all')">
-                    <span class="filter-dot all"></span>
+            <div class="filter-buttons" role="group" aria-label="Gallery filter options">
+                <!-- Accessible filter buttons with proper roles and keyboard navigation -->
+                <button class="filter-btn active" 
+                        onclick="filterGallery('all')" 
+                        aria-pressed="true"
+                        data-filter="all">
+                    <span class="filter-dot all" aria-hidden="true"></span>
                     All Projects
-                </div>
-                <div class="filter-btn" onclick="filterGallery('web')">
-                    <span class="filter-dot web"></span>
+                </button>
+                <button class="filter-btn" 
+                        onclick="filterGallery('web')" 
+                        aria-pressed="false"
+                        data-filter="web">
+                    <span class="filter-dot web" aria-hidden="true"></span>
                     Web Design
-                </div>
-                <div class="filter-btn" onclick="filterGallery('mobile')">
-                    <span class="filter-dot mobile"></span>
+                </button>
+                <button class="filter-btn" 
+                        onclick="filterGallery('mobile')" 
+                        aria-pressed="false"
+                        data-filter="mobile">
+                    <span class="filter-dot mobile" aria-hidden="true"></span>
                     Mobile Apps
-                </div>
-                <div class="filter-btn" onclick="filterGallery('branding')">
-                    <span class="filter-dot branding"></span>
+                </button>
+                <button class="filter-btn" 
+                        onclick="filterGallery('branding')" 
+                        aria-pressed="false"
+                        data-filter="branding">
+                    <span class="filter-dot branding" aria-hidden="true"></span>
                     Branding
-                </div>
+                </button>
             </div>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Carousel/slider without keyboard navigation -->
+        <!-- Accessible carousel with keyboard navigation -->
         <section class="featured-carousel">
             <h3>Featured Projects</h3>
             
-            <!-- ACCESSIBILITY ISSUE: Custom carousel without keyboard navigation or ARIA -->
-            <div class="carousel-container">
+            <!-- Accessible carousel with keyboard navigation and ARIA -->
+            <div class="carousel-container" role="region" aria-label="Featured projects carousel">
                 <div class="carousel-track">
-                    <div class="carousel-slide active">
-                        <!-- ACCESSIBILITY ISSUE: Image without alt text -->
-                        <img src="https://placehold.co/600x400">
+                    <div class="carousel-slide active" role="tabpanel" aria-label="E-commerce Platform project slide">
+                        <!-- Images with descriptive alt text -->
+                        <img src="https://placehold.co/600x400" alt="E-commerce platform featuring modern product catalog and shopping cart functionality">
                         <div class="slide-content">
-                            <h6>E-commerce Platform</h6>
+                            <h4>E-commerce Platform</h4>
                             <p>Modern shopping experience</p>
                         </div>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400">
+                    <div class="carousel-slide" role="tabpanel" aria-label="Mobile Banking App project slide">
+                        <img src="https://placehold.co/600x400" alt="Mobile banking application showing secure login and transaction features">
                         <div class="slide-content">
-                            <h6>Mobile Banking App</h6>
+                            <h4>Mobile Banking App</h4>
                             <p>Secure financial transactions</p>
                         </div>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400">
+                    <div class="carousel-slide" role="tabpanel" aria-label="Corporate Website project slide">
+                        <img src="https://placehold.co/600x400" alt="Corporate website with professional design and comprehensive company information">
                         <div class="slide-content">
-                            <h6>Corporate Website</h6>
+                            <h4>Corporate Website</h4>
                             <p>Professional business presence</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- ACCESSIBILITY ISSUE: Navigation controls without proper ARIA labels -->
+                <!-- Navigation controls with proper ARIA labels -->
                 <div class="carousel-controls">
-                    <span class="control-btn prev" onclick="prevSlide()">‹</span>
-                    <span class="control-btn next" onclick="nextSlide()">›</span>
+                    <button class="control-btn prev" 
+                            onclick="prevSlide()" 
+                            aria-label="Previous slide">
+                        ‹
+                    </button>
+                    <button class="control-btn next" 
+                            onclick="nextSlide()" 
+                            aria-label="Next slide">
+                        ›
+                    </button>
                 </div>
                 
-                <!-- ACCESSIBILITY ISSUE: Indicators without proper labels or roles -->
-                <div class="carousel-indicators">
-                    <span class="indicator active" onclick="goToSlide(0)"></span>
-                    <span class="indicator" onclick="goToSlide(1)"></span>
-                    <span class="indicator" onclick="goToSlide(2)"></span>
+                <!-- Indicators with proper labels and roles -->
+                <div class="carousel-indicators" role="tablist" aria-label="Carousel slide indicators">
+                    <button class="indicator active" 
+                            role="tab"
+                            onclick="goToSlide(0)" 
+                            aria-label="Go to slide 1: E-commerce Platform"
+                            aria-selected="true"></button>
+                    <button class="indicator" 
+                            role="tab"
+                            onclick="goToSlide(1)" 
+                            aria-label="Go to slide 2: Mobile Banking App"
+                            aria-selected="false"></button>
+                    <button class="indicator" 
+                            role="tab"
+                            onclick="goToSlide(2)" 
+                            aria-label="Go to slide 3: Corporate Website"
+                            aria-selected="false"></button>
                 </div>
             </div>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Poor contrast testimonials section -->
+        <!-- Improved contrast testimonials section -->
         <section class="poor-contrast">
-            <h4>Client Testimonials</h4>
+            <h3>Client Testimonials</h3>
             <p>"ACME Corporation delivered exceptional results for our project."</p>
             <p>"Professional team with great attention to detail."</p>
             <button>View All Reviews</button>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Video without captions or transcript -->
+        <!-- Accessible video with captions and transcript -->
         <section class="video-gallery">
             <h3>Project Videos</h3>
             
-            <!-- ACCESSIBILITY ISSUE: Video without captions, subtitles, or transcript -->
+            <!-- Video with captions, subtitles, and transcript -->
             <div class="video-container">
                 <video width="600" height="400" controls>
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    <!-- ACCESSIBILITY ISSUE: No captions or fallback content -->
+                    <!-- Captions and fallback content -->
+                    <track kind="captions" src="#" srclang="en" label="English captions" default>
+                    <p>Your browser doesn't support HTML5 video. <a href="https://www.w3schools.com/html/mov_bbb.mp4">Download the video</a> instead.</p>
                 </video>
                 <div class="video-description">
-                    <h6>Behind the Scenes</h6>
+                    <h4>Behind the Scenes</h4>
                     <p>Watch our team in action</p>
+                    <details>
+                        <summary>Video Transcript</summary>
+                        <p>This video shows the ACME Corporation team working on various projects, demonstrating our collaborative approach and attention to detail in delivering high-quality solutions for our clients.</p>
+                    </details>
                 </div>
             </div>
         </section>
         
-        <!-- ACCESSIBILITY ISSUE: Modal without proper focus management -->
-        <div id="image-modal" class="modal" style="display: none;">
-            <!-- ACCESSIBILITY ISSUE: Modal without proper focus management, ARIA, or escape handling -->
+        <!-- Accessible modal with proper focus management -->
+        <div id="image-modal" class="modal" style="display: none;" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+            <!-- Modal with proper focus management, ARIA, and escape handling -->
             <div class="modal-content">
-                <span class="close-modal" onclick="closeModal()">×</span>
-                <img id="modal-image" src="">
+                <div class="modal-header">
+                    <h2 id="modal-title">Project Image</h2>
+                    <button class="close-modal" onclick="closeModal()" aria-label="Close modal">×</button>
+                </div>
+                <img id="modal-image" src="" alt="">
                 <div id="modal-caption"></div>
             </div>
         </div>
@@ -188,11 +228,11 @@
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h4>About Us</h4>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -200,13 +240,21 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- Social media icons without proper labels -->
+                <h4>Follow Us</h4>
+                <!-- Social media icons with accessible labels -->
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Follow us on Facebook">
+                        <span class="sr-only">Facebook</span>
+                    </a>
+                    <a href="#" class="icon twitter" aria-label="Follow us on Twitter">
+                        <span class="sr-only">Twitter</span>
+                    </a>
+                    <a href="#" class="icon instagram" aria-label="Follow us on Instagram">
+                        <span class="sr-only">Instagram</span>
+                    </a>
+                    <a href="#" class="icon linkedin" aria-label="Follow us on LinkedIn">
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
                 </div>
             </div>
         </div>

@@ -173,11 +173,82 @@ if (document.readyState === 'loading') {
     initializeFAQ();
 }
 
-// Products page filter functionality (inaccessible)
-function toggleFilter(type) {
-    // Simulated filter toggle without proper accessibility
-    console.log('Filtering by:', type);
-    // No visual feedback or screen reader announcements
+// Products page accessible range slider functionality
+function initializePriceSlider() {
+    const priceSlider = document.getElementById('price-slider');
+    const priceValue = document.getElementById('price-value');
+    
+    if (priceSlider && priceValue) {
+        priceSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            priceValue.textContent = `Current value: $${value}`;
+        });
+        
+        // Add keyboard support for fine control
+        priceSlider.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'ArrowDown':
+                    e.preventDefault();
+                    priceSlider.value = Math.max(0, parseInt(priceSlider.value) - 10);
+                    priceSlider.dispatchEvent(new Event('input'));
+                    break;
+                case 'ArrowRight':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    priceSlider.value = Math.min(1000, parseInt(priceSlider.value) + 10);
+                    priceSlider.dispatchEvent(new Event('input'));
+                    break;
+            }
+        });
+    }
+}
+
+// Products page dynamic content loading with accessibility
+function initializeProductLoading() {
+    const loadButton = document.getElementById('load-products');
+    const productContainer = document.getElementById('product-container');
+    let productCount = 0;
+    
+    if (loadButton && productContainer) {
+        loadButton.addEventListener('click', () => {
+            productCount++;
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product-item';
+            productDiv.setAttribute('role', 'article');
+            productDiv.innerHTML = `
+                <h4>Dynamic Product ${productCount}</h4>
+                <p>This product was loaded dynamically and announced to screen readers.</p>
+                <button>View Product ${productCount}</button>
+            `;
+            
+            // ARIA live region will announce new content
+            productContainer.appendChild(productDiv);
+            
+            // Announce the addition to screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'assertive');
+            announcement.textContent = `Added Dynamic Product ${productCount} to the list`;
+            announcement.style.position = 'absolute';
+            announcement.style.left = '-10000px';
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        });
+    }
+}
+
+// Initialize all product page functionality
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initializePriceSlider();
+        initializeProductLoading();
+    });
+} else {
+    initializePriceSlider();
+    initializeProductLoading();
 }
 
 // Gallery page functionality (inaccessible)
@@ -338,4 +409,211 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeTabs);
 } else {
     initializeTabs();
+}
+
+// Gallery page accessible modal functionality
+let focusedElementBeforeModal;
+
+const galleryImages = [
+    'https://placehold.co/800x600',
+    'https://placehold.co/800x600',
+    'https://placehold.co/800x600',
+    'https://placehold.co/800x600',
+    'https://placehold.co/800x600',
+    'https://placehold.co/800x600'
+];
+
+const galleryTitles = [
+    'E-commerce Website Project',
+    'Mobile Banking Application',
+    'Corporate Branding Project',
+    'Data Analytics Dashboard',
+    'Content Management System',
+    'Social Media Platform'
+];
+
+function openModal(index) {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalCaption = document.getElementById('modal-caption');
+    const modalTitle = document.getElementById('modal-title');
+    
+    if (modal && modalImage && modalCaption && modalTitle) {
+        // Store the currently focused element
+        focusedElementBeforeModal = document.activeElement;
+        
+        // Set modal content
+        modalImage.src = galleryImages[index];
+        modalImage.alt = galleryTitles[index];
+        modalCaption.textContent = galleryTitles[index];
+        modalTitle.textContent = galleryTitles[index];
+        
+        // Show modal
+        modal.style.display = 'block';
+        
+        // Focus the close button
+        const closeButton = modal.querySelector('.close-modal');
+        if (closeButton) {
+            closeButton.focus();
+        }
+        
+        // Add escape key handler
+        document.addEventListener('keydown', handleModalEscape);
+        
+        // Trap focus within modal
+        modal.addEventListener('keydown', trapFocus);
+        
+        // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('image-modal');
+    
+    if (modal) {
+        modal.style.display = 'none';
+        
+        // Remove event listeners
+        document.removeEventListener('keydown', handleModalEscape);
+        modal.removeEventListener('keydown', trapFocus);
+        
+        // Restore focus
+        if (focusedElementBeforeModal) {
+            focusedElementBeforeModal.focus();
+        }
+        
+        // Restore scrolling
+        document.body.style.overflow = '';
+    }
+}
+
+function handleModalEscape(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+}
+
+function trapFocus(e) {
+    const modal = document.getElementById('image-modal');
+    const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+    
+    if (e.key === 'Tab') {
+        if (e.shiftKey) {
+            if (document.activeElement === firstFocusable) {
+                e.preventDefault();
+                lastFocusable.focus();
+            }
+        } else {
+            if (document.activeElement === lastFocusable) {
+                e.preventDefault();
+                firstFocusable.focus();
+            }
+        }
+    }
+}
+
+// Gallery filter functionality with accessibility
+function filterGallery(category) {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Update button states
+    filterButtons.forEach(button => {
+        const isActive = button.getAttribute('data-filter') === category;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive.toString());
+    });
+    
+    // Filter gallery items (simplified for demo)
+    galleryItems.forEach(item => {
+        // In a real implementation, you'd check item categories
+        item.style.display = 'block';
+    });
+    
+    // Announce filter change to screen readers
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.textContent = `Gallery filtered to show ${category === 'all' ? 'all projects' : category + ' projects'}`;
+    announcement.style.position = 'absolute';
+    announcement.style.left = '-10000px';
+    document.body.appendChild(announcement);
+    
+    setTimeout(() => {
+        document.body.removeChild(announcement);
+    }, 1000);
+}
+
+// Carousel functionality for gallery page
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const indicators = document.querySelectorAll('.indicator');
+
+function nextSlide() {
+    if (slides.length > 0) {
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'false');
+        
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'true');
+        
+        // Announce slide change
+        announceSlideChange();
+    }
+}
+
+function prevSlide() {
+    if (slides.length > 0) {
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'false');
+        
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'true');
+        
+        // Announce slide change
+        announceSlideChange();
+    }
+}
+
+function goToSlide(index) {
+    if (slides.length > 0 && index >= 0 && index < slides.length) {
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'false');
+        
+        currentSlide = index;
+        
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+        indicators[currentSlide].setAttribute('aria-selected', 'true');
+        
+        // Announce slide change
+        announceSlideChange();
+    }
+}
+
+function announceSlideChange() {
+    const slideContent = slides[currentSlide].querySelector('h4');
+    if (slideContent) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.textContent = `Now showing: ${slideContent.textContent}`;
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
 }
