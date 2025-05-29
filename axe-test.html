@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Testing with axe-core</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .results { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .violation { border-left: 4px solid #ff4444; padding: 10px; margin: 10px 0; background: #fff; }
+        .critical { border-left-color: #ff0000; }
+        .serious { border-left-color: #ff4444; }
+        .moderate { border-left-color: #ffaa00; }
+        .minor { border-left-color: #ffff00; }
+        .summary { background: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>🦾 axe-core Accessibility Testing Results</h1>
+    
+    <div id="loading">
+        <p>🔄 Running accessibility tests on all pages...</p>
+    </div>
+    
+    <div id="results" style="display: none;">
+        <div class="summary">
+            <h2>📊 Test Summary</h2>
+            <p><strong>Pages tested:</strong> <span id="page-count">0</span></p>
+            <p><strong>Total violations:</strong> <span id="violation-count">0</span></p>
+            <p><strong>Test status:</strong> <span id="test-status">Running...</span></p>
+        </div>
+        
+        <div id="violations-list"></div>
+    </div>
+
+    <script src="node_modules/axe-core/axe.min.js"></script>
+    <script>
+        async function runAxeTests() {
+            const pages = ['index.html', 'about.html', 'products.html', 'gallery.html', 'contact.html'];
+            let totalViolations = 0;
+            const violationsList = document.getElementById('violations-list');
+            
+            for (const page of pages) {
+                try {
+                    // Create iframe to test each page
+                    const iframe = document.createElement('iframe');
+                    iframe.src = page;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    await new Promise(resolve => {
+                        iframe.onload = async () => {
+                            try {
+                                const results = await axe.run(iframe.contentDocument);
+                                
+                                totalViolations += results.violations.length;
+                                
+                                // Display results for this page
+                                const pageSection = document.createElement('div');
+                                pageSection.className = 'results';
+                                pageSection.innerHTML = `
+                                    <h3>📄 ${page}</h3>
+                                    <p><strong>Violations found:</strong> ${results.violations.length}</p>
+                                `;
+                                
+                                results.violations.forEach(violation => {
+                                    const violationDiv = document.createElement('div');
+                                    violationDiv.className = `violation ${violation.impact}`;
+                                    violationDiv.innerHTML = `
+                                        <h4>${violation.help}</h4>
+                                        <p><strong>Impact:</strong> ${violation.impact}</p>
+                                        <p><strong>Description:</strong> ${violation.description}</p>
+                                        <p><strong>Instances:</strong> ${violation.nodes.length}</p>
+                                        <p><strong>Tags:</strong> ${violation.tags.join(', ')}</p>
+                                        <p><a href="${violation.helpUrl}" target="_blank">Learn more</a></p>
+                                    `;
+                                    pageSection.appendChild(violationDiv);
+                                });
+                                
+                                violationsList.appendChild(pageSection);
+                            } catch (error) {
+                                console.error(`Error testing ${page}:`, error);
+                                const errorDiv = document.createElement('div');
+                                errorDiv.className = 'results';
+                                errorDiv.innerHTML = `
+                                    <h3>📄 ${page}</h3>
+                                    <p style="color: red;">❌ Error running test: ${error.message}</p>
+                                `;
+                                violationsList.appendChild(errorDiv);
+                            }
+                            
+                            document.body.removeChild(iframe);
+                            resolve();
+                        };
+                    });
+                    
+                } catch (error) {
+                    console.error(`Error loading ${page}:`, error);
+                }
+            }
+            
+            // Update summary
+            document.getElementById('page-count').textContent = pages.length;
+            document.getElementById('violation-count').textContent = totalViolations;
+            document.getElementById('test-status').textContent = totalViolations > 0 ? '❌ FAILING' : '✅ PASSING';
+            
+            // Show results
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            
+            console.log(`Accessibility testing completed. ${totalViolations} violations found across ${pages.length} pages.`);
+        }
+        
+        // Start testing when page loads
+        window.addEventListener('load', runAxeTests);
+    </script>
+</body>
+</html>
