@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="logo">ACME Corp</div>
         <nav>
@@ -22,177 +21,133 @@
         </nav>
     </header>
 
-    <main>
-        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
+    <main id="main-content">
         <h1>ACME Gallery</h1>
-        <h4>Showcase of Our Work and Achievements</h4>
-        
-        <!-- ACCESSIBILITY ISSUE: Hero banner without alt text -->
-        <img src="https://placehold.co/800x300" class="hero-image">
-        
-        <!-- ACCESSIBILITY ISSUE: Image gallery with multiple accessibility problems -->
+        <h2>Showcase of Our Work and Achievements</h2>
+        <img src="https://placehold.co/800x300" class="hero-image" alt="ACME Gallery banner">
         <section class="image-gallery">
             <h2>Project Gallery</h2>
-            
-            <!-- ACCESSIBILITY ISSUE: Gallery grid with images missing alt text -->
             <div class="gallery-grid">
-                <!-- ACCESSIBILITY ISSUE: All images missing alt attributes -->
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Alpha">
                     <div class="gallery-overlay">
-                        <!-- ACCESSIBILITY ISSUE: Non-semantic clickable element, mouse-only interaction -->
-                        <div class="view-btn" onclick="openModal(0)">View</div>
+                        <button class="view-btn" onclick="openModal(0)">View</button>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Beta">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(1)">View</div>
+                        <button class="view-btn" onclick="openModal(1)">View</button>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Gamma">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(2)">View</div>
+                        <button class="view-btn" onclick="openModal(2)">View</button>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Delta">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(3)">View</div>
+                        <button class="view-btn" onclick="openModal(3)">View</button>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Epsilon">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(4)">View</div>
+                        <button class="view-btn" onclick="openModal(4)">View</button>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/300x200">
+                    <img src="https://placehold.co/300x200" alt="Project Zeta">
                     <div class="gallery-overlay">
-                        <div class="view-btn" onclick="openModal(5)">View</div>
+                        <button class="view-btn" onclick="openModal(5)">View</button>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Filter section using color-only indicators -->
         <section class="gallery-filters">
-            <!-- ACCESSIBILITY ISSUE: Skipping heading level h2 to h5 -->
-            <h5>Filter by Category</h5>
-            
-            <div class="filter-buttons">
-                <!-- ACCESSIBILITY ISSUE: Custom filter buttons without proper roles or keyboard navigation -->
-                <div class="filter-btn active" onclick="filterGallery('all')">
-                    <span class="filter-dot all"></span>
-                    All Projects
-                </div>
-                <div class="filter-btn" onclick="filterGallery('web')">
-                    <span class="filter-dot web"></span>
-                    Web Design
-                </div>
-                <div class="filter-btn" onclick="filterGallery('mobile')">
-                    <span class="filter-dot mobile"></span>
-                    Mobile Apps
-                </div>
-                <div class="filter-btn" onclick="filterGallery('branding')">
-                    <span class="filter-dot branding"></span>
-                    Branding
-                </div>
+            <h3>Filter by Category</h3>
+            <div class="filter-buttons" role="tablist">
+                <button class="filter-btn active" onclick="filterGallery('all')" aria-label="Show all projects" role="tab" tabindex="0"><span class="filter-dot all" aria-label="All"></span>All Projects</button>
+                <button class="filter-btn" onclick="filterGallery('web')" aria-label="Show web design projects" role="tab" tabindex="0"><span class="filter-dot web" aria-label="Web Design"></span>Web Design</button>
+                <button class="filter-btn" onclick="filterGallery('mobile')" aria-label="Show mobile apps" role="tab" tabindex="0"><span class="filter-dot mobile" aria-label="Mobile Apps"></span>Mobile Apps</button>
+                <button class="filter-btn" onclick="filterGallery('branding')" aria-label="Show branding projects" role="tab" tabindex="0"><span class="filter-dot branding" aria-label="Branding"></span>Branding</button>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Carousel/slider without keyboard navigation -->
         <section class="featured-carousel">
-            <h3>Featured Projects</h3>
-            
-            <!-- ACCESSIBILITY ISSUE: Custom carousel without keyboard navigation or ARIA -->
-            <div class="carousel-container">
+            <h2>Featured Projects</h2>
+            <div class="carousel-container" role="region" aria-label="Featured Projects Carousel">
                 <div class="carousel-track">
                     <div class="carousel-slide active">
-                        <!-- ACCESSIBILITY ISSUE: Image without alt text -->
-                        <img src="https://placehold.co/600x400">
+                        <img src="https://placehold.co/600x400" alt="E-commerce Platform">
                         <div class="slide-content">
-                            <h6>E-commerce Platform</h6>
+                            <h3>E-commerce Platform</h3>
                             <p>Modern shopping experience</p>
                         </div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400">
+                        <img src="https://placehold.co/600x400" alt="Mobile Banking App">
                         <div class="slide-content">
-                            <h6>Mobile Banking App</h6>
+                            <h3>Mobile Banking App</h3>
                             <p>Secure financial transactions</p>
                         </div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400">
+                        <img src="https://placehold.co/600x400" alt="Corporate Website">
                         <div class="slide-content">
-                            <h6>Corporate Website</h6>
+                            <h3>Corporate Website</h3>
                             <p>Professional business presence</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- ACCESSIBILITY ISSUE: Navigation controls without proper ARIA labels -->
                 <div class="carousel-controls">
-                    <span class="control-btn prev" onclick="prevSlide()">‹</span>
-                    <span class="control-btn next" onclick="nextSlide()">›</span>
+                    <button class="control-btn prev" onclick="prevSlide()" aria-label="Previous slide">‹</button>
+                    <button class="control-btn next" onclick="nextSlide()" aria-label="Next slide">›</button>
                 </div>
-                
-                <!-- ACCESSIBILITY ISSUE: Indicators without proper labels or roles -->
                 <div class="carousel-indicators">
-                    <span class="indicator active" onclick="goToSlide(0)"></span>
-                    <span class="indicator" onclick="goToSlide(1)"></span>
-                    <span class="indicator" onclick="goToSlide(2)"></span>
+                    <button class="indicator active" onclick="goToSlide(0)" aria-label="Go to slide 1"></button>
+                    <button class="indicator" onclick="goToSlide(1)" aria-label="Go to slide 2"></button>
+                    <button class="indicator" onclick="goToSlide(2)" aria-label="Go to slide 3"></button>
                 </div>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Poor contrast testimonials section -->
         <section class="poor-contrast">
-            <h4>Client Testimonials</h4>
-            <p>"ACME Corporation delivered exceptional results for our project."</p>
-            <p>"Professional team with great attention to detail."</p>
-            <button>View All Reviews</button>
+            <h2 style="color:#222;">Client Testimonials</h2>
+            <p style="color:#222;">"ACME Corporation delivered exceptional results for our project."</p>
+            <p style="color:#222;">"Professional team with great attention to detail."</p>
+            <button style="background-color:#005a9e;color:#fff;">View All Reviews</button>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Video without captions or transcript -->
         <section class="video-gallery">
-            <h3>Project Videos</h3>
-            
-            <!-- ACCESSIBILITY ISSUE: Video without captions, subtitles, or transcript -->
+            <h2>Project Videos</h2>
             <div class="video-container">
-                <video width="600" height="400" controls>
+                <video width="600" height="400" controls aria-describedby="video1-desc">
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    <!-- ACCESSIBILITY ISSUE: No captions or fallback content -->
+                    <track kind="captions" src="captions_en.vtt" srclang="en" label="English captions">
+                    Your browser does not support the video tag.
                 </video>
-                <div class="video-description">
-                    <h6>Behind the Scenes</h6>
-                    <p>Watch our team in action</p>
+                <div class="video-description" id="video1-desc">
+                    <h3>Behind the Scenes</h3>
+                    <p>Watch our team in action. <a href="#" aria-label="Download transcript for Behind the Scenes">Download transcript</a></p>
                 </div>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Modal without proper focus management -->
-        <div id="image-modal" class="modal" style="display: none;">
-            <!-- ACCESSIBILITY ISSUE: Modal without proper focus management, ARIA, or escape handling -->
+        <div id="image-modal" class="modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-caption">
             <div class="modal-content">
-                <span class="close-modal" onclick="closeModal()">×</span>
-                <img id="modal-image" src="">
+                <button class="close-modal" onclick="closeModal()" aria-label="Close modal">×</button>
+                <img id="modal-image" src="" alt="Gallery image enlarged">
                 <div id="modal-caption"></div>
             </div>
         </div>
     </main>
-    
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h3>About Us</h3>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -200,19 +155,17 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- Social media icons without proper labels -->
+                <h3>Follow Us</h3>
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Facebook"></a>
+                    <a href="#" class="icon twitter" aria-label="Twitter"></a>
+                    <a href="#" class="icon instagram" aria-label="Instagram"></a>
+                    <a href="#" class="icon linkedin" aria-label="LinkedIn"></a>
                 </div>
             </div>
         </div>
         <p class="copyright">© 2023 ACME Corporation. All rights reserved.</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>

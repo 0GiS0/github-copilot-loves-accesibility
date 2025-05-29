@@ -10,3 +10,5 @@ violations_summary.txt
 # Temporary files
 *.tmp
 .DS_Store
+pa11y-report.json
+.gitignore
