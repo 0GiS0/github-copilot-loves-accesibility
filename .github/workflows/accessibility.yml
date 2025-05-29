@@ -36,7 +36,8 @@ jobs:
         
       - name: "📦 Install dependencies"
         run: |
-          npm install -g @axe-core/cli http-server
+          # npm install -g @axe-core/cli http-server
+          npm install -g pa11y http-server jq
           # sudo apt-get update && sudo apt-get install -y firefox jq
         
       # - name: "🧰 Install browser-driver-manager"
