@@ -15,7 +15,7 @@
             }
         }
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y chromium jq && npm install -g @axe-core/cli http-server browser-driver-manager && npx browser-driver-manager install chrome",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y chromium jq && npm install -g @axe-core/cli http-server browser-driver-manager pa11y && npx browser-driver-manager install chrome",
     "postStartCommand": "http-server -p 5500",
     "remoteUser": "node"
 }
