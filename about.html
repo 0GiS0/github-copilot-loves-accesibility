@@ -1,32 +1,196 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre mí - Gisela Torres</title>
+    <title>About Us - ACME Corp</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    <main id="main-content">
-        <section class="about-container">
-            <div class="portrait-placeholder" aria-label="Foto de Gisela Torres" role="img" tabindex="0">
-                <img src="https://placehold.co/300x400" alt="Retrato de Gisela Torres" class="portrait-img" width="300" height="400" />
+    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <header>
+        <div class="logo">ACME Corp</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
+        <h1>About ACME Corporation</h1>
+        <h4>Excellence in Business Solutions Since 2010</h4>
+        
+        <!-- ACCESSIBILITY ISSUE: Image without alt text -->
+        <img src="https://placehold.co/600x300" class="hero-image">
+        
+        <!-- ACCESSIBILITY ISSUE: Non-semantic layout using divs instead of proper structure -->
+        <section class="about-content">
+            <h2>Our Story</h2>
+            
+            <!-- ACCESSIBILITY ISSUE: Non-semantic layout using divs -->
+            <div class="company-info">
+                <div class="info-section">
+                    <!-- ACCESSIBILITY ISSUE: Skipping heading levels h2 to h5 -->
+                    <h5>Our Mission</h5>
+                    <p>ACME Corporation strives to provide innovative solutions that help businesses grow and succeed in today's competitive market.</p>
+                </div>
+                
+                <div class="info-section">
+                    <h5>Our Vision</h5>
+                    <p>To be the leading provider of business solutions worldwide, empowering companies to achieve their full potential.</p>
+                </div>
             </div>
-            <section class="about-text">
-                <h1>Sobre mí</h1>
-                <p>¡Hola developer 👋🏻! Me llamo Gisela Torres y trabajo en Microsoft como Global Blackbelt para un
-                    área llamada Developer Productivity, la cuál tiene como objetivo hacer más felices y productivos a
-                    los desarrolladores 😃 También soy profesora en Lemoncode {🍋}. Antes de todo esto, trabajé como
-                    arquitecta de software y desarrolladora de aplicaciones en varias empresas. Durante esos años tuve
-                    la suerte de ser premiada como Most Valuable Professional en Microsoft Azure (2010 & 2011) y fue
-                    poco antes cuando comencé a escribir en este blog. Me encanta programar y la tecnología en general,
-                    por eso he abierto este canal, para poder compartir contigo lo que voy aprendiendo.</p>
-            </section>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Team section with images missing alt text -->
+        <section class="team-section">
+            <h3>Meet Our Team</h3>
+            
+            <div class="team-grid">
+                <!-- ACCESSIBILITY ISSUE: Team member cards without proper semantic structure -->
+                <div class="team-member">
+                    <!-- ACCESSIBILITY ISSUE: Image without alt text -->
+                    <img src="https://placehold.co/200x200">
+                    <div class="member-info">
+                        <h6>John Smith</h6>
+                        <div>CEO & Founder</div>
+                        <!-- ACCESSIBILITY ISSUE: Contact status using color only -->
+                        <div class="contact-status">
+                            <span class="status-dot available"></span>
+                            Available
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://placehold.co/200x200">
+                    <div class="member-info">
+                        <h6>Sarah Johnson</h6>
+                        <div>CTO</div>
+                        <div class="contact-status">
+                            <span class="status-dot unavailable"></span>
+                            In Meeting
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://placehold.co/200x200">
+                    <div class="member-info">
+                        <h6>Mike Wilson</h6>
+                        <div>Lead Developer</div>
+                        <div class="contact-status">
+                            <span class="status-dot coming-soon"></span>
+                            On Leave
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Poor contrast section -->
+        <section class="poor-contrast">
+            <h4>Our Achievements</h4>
+            <p>Over 500 satisfied clients worldwide</p>
+            <p>15+ years of industry experience</p>
+            <p>Award-winning customer service</p>
+            <button>View Certifications</button>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Interactive tabs without keyboard navigation -->
+        <section class="values-section">
+            <h3>Our Values</h3>
+            
+            <!-- ACCESSIBILITY ISSUE: Interactive tabs without keyboard navigation or proper ARIA -->
+            <div class="value-tabs">
+                <div class="tab-header">
+                    <!-- ACCESSIBILITY ISSUE: Non-semantic tab buttons without proper roles -->
+                    <div class="tab-btn active" onclick="showValue('innovation')">Innovation</div>
+                    <div class="tab-btn" onclick="showValue('quality')">Quality</div>
+                    <div class="tab-btn" onclick="showValue('service')">Service</div>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="innovation" class="value-content active">
+                        <p>We constantly push boundaries to deliver cutting-edge solutions for our clients.</p>
+                    </div>
+                    <div id="quality" class="value-content">
+                        <p>Every project is executed with the highest standards of quality and attention to detail.</p>
+                    </div>
+                    <div id="service" class="value-content">
+                        <p>Our dedicated support team ensures exceptional customer service at every step.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Timeline without proper semantic structure -->
+        <section class="timeline-section">
+            <!-- ACCESSIBILITY ISSUE: Another heading level skip h3 to h6 -->
+            <h6>Company Timeline</h6>
+            
+            <!-- ACCESSIBILITY ISSUE: Timeline using visual indicators only -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot founded"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <div>Company Founded</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot expansion"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <div>International Expansion</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot award"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div>Industry Award Winner</div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-</body>
+    
+    <footer>
+        <div class="columns">
+            <div class="column">
+                <h6>About Us</h6>
+                <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
+            </div>
+            <div class="column">
+                <h6>Quick Links</h6>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h6>Follow Us</h6>
+                <!-- Social media icons without proper labels -->
+                <div class="social-icons">
+                    <a href="#" class="icon facebook"></a>
+                    <a href="#" class="icon twitter"></a>
+                    <a href="#" class="icon instagram"></a>
+                    <a href="#" class="icon linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2023 ACME Corporation. All rights reserved.</p>
+    </footer>
 
+    <script src="script.js"></script>
+</body>
 </html>

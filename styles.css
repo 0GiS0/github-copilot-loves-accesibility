@@ -266,3 +266,571 @@ footer li {
     margin-top: 2rem;
     color: #aaa;
 }
+
+/* Contact page styles */
+.map-section {
+    margin-bottom: 2rem;
+}
+
+.map-section iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    margin-bottom: 1rem;
+}
+
+.directions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.directions div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Direction dots using color only */
+.direction-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.direction-dot.red {
+    background-color: #f44336;
+}
+
+.direction-dot.green {
+    background-color: #4caf50;
+}
+
+.direction-dot.blue {
+    background-color: #2196f3;
+}
+
+/* FAQ section with inaccessible interactions */
+.faq-section {
+    margin-bottom: 2rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.faq-question {
+    padding: 1rem;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.faq-answer {
+    padding: 1rem;
+    display: none;
+    background-color: #fff;
+}
+
+.faq-answer.show {
+    display: block;
+}
+
+/* Products page styles */
+.product-showcase table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.product-showcase td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.product-showcase img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.table-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Custom filter controls without proper accessibility */
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ddd;
+    display: inline-block;
+}
+
+.checkbox-box.checked {
+    background-color: #007bff;
+}
+
+.price-range {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.price-range input[type="range"] {
+    width: 200px;
+}
+
+/* Product comparison using divs instead of table */
+.comparison-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    background-color: #ddd;
+    margin-bottom: 2rem;
+}
+
+.comparison-row {
+    display: contents;
+}
+
+.comparison-table > div {
+    background-color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.comparison-header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.dynamic-products {
+    margin-bottom: 2rem;
+}
+
+#product-container {
+    min-height: 200px;
+    border: 1px dashed #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Gallery page styles */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.view-btn {
+    background-color: #fff;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Gallery filters using color-only indicators */
+.gallery-filters {
+    margin-bottom: 2rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.filter-btn.active {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.filter-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.filter-dot.all {
+    background-color: #333;
+}
+
+.filter-dot.web {
+    background-color: #007bff;
+}
+
+.filter-dot.mobile {
+    background-color: #28a745;
+}
+
+.filter-dot.branding {
+    background-color: #ffc107;
+}
+
+/* Carousel styles */
+.featured-carousel {
+    margin-bottom: 2rem;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carousel-track {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.carousel-slide {
+    display: none;
+    position: relative;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 2rem 1rem 1rem;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.control-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background-color: #007bff;
+}
+
+/* Video gallery */
+.video-gallery {
+    margin-bottom: 2rem;
+}
+
+.video-container {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.video-container video {
+    flex: 1;
+    min-width: 300px;
+}
+
+.video-description {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Modal styles (inaccessible) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+#modal-caption {
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* About page styles */
+.about-content {
+    margin-bottom: 2rem;
+}
+
+.company-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.info-section {
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.team-section {
+    margin-bottom: 2rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.team-member {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.member-info h6 {
+    margin: 0.5rem 0;
+}
+
+.contact-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Values section with inaccessible tabs */
+.values-section {
+    margin-bottom: 2rem;
+}
+
+.value-tabs {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.tab-header {
+    display: flex;
+    background-color: #f5f5f5;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content {
+    padding: 1.5rem;
+}
+
+.value-content {
+    display: none;
+}
+
+.value-content.active {
+    display: block;
+}
+
+/* Timeline section */
+.timeline-section {
+    margin-bottom: 2rem;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.timeline-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Timeline dots using color only */
+.timeline-dot.founded {
+    background-color: #28a745; /* Green for founding */
+}
+
+.timeline-dot.expansion {
+    background-color: #007bff; /* Blue for expansion */
+}
+
+.timeline-dot.award {
+    background-color: #ffc107; /* Yellow for award */
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-year {
+    font-weight: bold;
+    color: #007bff;
+}

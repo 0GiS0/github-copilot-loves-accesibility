@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ACME Corp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <header>
+        <div class="logo">ACME Corp</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
+        <h1>Our Products</h1>
+        <h4>Innovative Solutions for Modern Businesses</h4>
+        
+        <!-- ACCESSIBILITY ISSUE: Hero image without alt text -->
+        <img src="https://placehold.co/800x300" class="hero-image">
+        
+        <!-- ACCESSIBILITY ISSUE: Using color-only indicators to convey product status -->
+        <section class="product-categories">
+            <h2>Product Categories</h2>
+            <div class="features">
+                <!-- ACCESSIBILITY ISSUE: Status indicated by color only -->
+                <div class="feature">
+                    <span class="status-dot available"></span>
+                    <h5>Software Solutions</h5>
+                    <p>Cutting-edge software for your business needs.</p>
+                    <!-- ACCESSIBILITY ISSUE: Links with unclear context -->
+                    <a href="#">Click here</a>
+                </div>
+                <div class="feature">
+                    <span class="status-dot unavailable"></span>
+                    <h5>Hardware Products</h5>
+                    <p>Professional-grade hardware equipment.</p>
+                    <!-- ACCESSIBILITY ISSUE: Another unclear link -->
+                    <a href="#">More info</a>
+                </div>
+                <div class="feature">
+                    <span class="status-dot coming-soon"></span>
+                    <h5>Cloud Services</h5>
+                    <p>Scalable cloud infrastructure solutions.</p>
+                    <a href="#">Learn more</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Table without proper headers -->
+        <section class="product-showcase">
+            <!-- ACCESSIBILITY ISSUE: Skipping heading levels h2 to h6 -->
+            <h6>Featured Products</h6>
+            
+            <!-- ACCESSIBILITY ISSUE: Table without proper th elements or scope attributes -->
+            <table>
+                <tr>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Features</td>
+                    <td>Action</td>
+                </tr>
+                <tr>
+                    <!-- ACCESSIBILITY ISSUE: Images in table without alt text -->
+                    <td><img src="https://placehold.co/100x100"></td>
+                    <td>$99.99</td>
+                    <td>Feature A, Feature B, Feature C</td>
+                    <!-- ACCESSIBILITY ISSUE: Non-semantic button using div -->
+                    <td><div class="table-btn">Buy Now</div></td>
+                </tr>
+                <tr>
+                    <td><img src="https://placehold.co/100x100"></td>
+                    <td>$199.99</td>
+                    <td>Advanced Feature X, Feature Y</td>
+                    <td><div class="table-btn">Buy Now</div></td>
+                </tr>
+            </table>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Custom controls without proper ARIA or keyboard navigation -->
+        <section class="product-filters">
+            <h3>Filter Products</h3>
+            
+            <!-- ACCESSIBILITY ISSUE: Custom controls not accessible to keyboard users -->
+            <div class="filter-controls">
+                <!-- ACCESSIBILITY ISSUE: Custom checkbox without proper labeling or roles -->
+                <div class="custom-checkbox" onclick="toggleFilter('software')">
+                    <span class="checkbox-box"></span>
+                    Software
+                </div>
+                <div class="custom-checkbox" onclick="toggleFilter('hardware')">
+                    <span class="checkbox-box"></span>
+                    Hardware
+                </div>
+                <div class="custom-checkbox" onclick="toggleFilter('cloud')">
+                    <span class="checkbox-box"></span>
+                    Cloud
+                </div>
+                
+                <!-- ACCESSIBILITY ISSUE: Range slider without proper labeling -->
+                <div class="price-range">
+                    <input type="range" min="0" max="1000" value="500">
+                    <div>Price Range</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Poor color contrast section -->
+        <section class="poor-contrast">
+            <h5>Special Pricing</h5>
+            <p>Limited time offer on selected products!</p>
+            <button>View Deals</button>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Using divs instead of proper table structure -->
+        <section class="product-comparison">
+            <h3>Compare Products</h3>
+            
+            <!-- ACCESSIBILITY ISSUE: Data table implemented with divs instead of table elements -->
+            <div class="comparison-table">
+                <div class="comparison-row">
+                    <div class="comparison-header">Feature</div>
+                    <div class="comparison-header">Basic Plan</div>
+                    <div class="comparison-header">Pro Plan</div>
+                    <div class="comparison-header">Enterprise</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Storage Space</div>
+                    <div>10GB</div>
+                    <div>100GB</div>
+                    <div>Unlimited</div>
+                </div>
+                <div class="comparison-row">
+                    <div>Support</div>
+                    <!-- ACCESSIBILITY ISSUE: Using emoji/symbols without text alternatives -->
+                    <div>❌</div>
+                    <div>✅</div>
+                    <div>✅</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACCESSIBILITY ISSUE: Dynamic content without ARIA live regions -->
+        <section class="dynamic-products">
+            <h4>Latest Products</h4>
+            <div id="product-container">
+                <!-- ACCESSIBILITY ISSUE: Products loaded here dynamically without announcements -->
+            </div>
+            <button id="load-products">Load More Products</button>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="columns">
+            <div class="column">
+                <h6>About Us</h6>
+                <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
+            </div>
+            <div class="column">
+                <h6>Quick Links</h6>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h6>Follow Us</h6>
+                <!-- Social media icons without proper labels -->
+                <div class="social-icons">
+                    <a href="#" class="icon facebook"></a>
+                    <a href="#" class="icon twitter"></a>
+                    <a href="#" class="icon instagram"></a>
+                    <a href="#" class="icon linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2023 ACME Corporation. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
