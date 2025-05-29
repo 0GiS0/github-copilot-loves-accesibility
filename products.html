@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <!-- Skip navigation for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="logo">ACME Corp</div>
         <nav>
@@ -22,7 +22,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
         <h1>Our Products</h1>
         <h4>Innovative Solutions for Modern Businesses</h4>

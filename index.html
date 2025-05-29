@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- Intentionally missing lang attribute -->
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- No skip link to bypass navigation -->
+    <!-- Skip navigation for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="logo">ACME Corp</div>
         <nav>
@@ -22,90 +22,100 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Inconsistent heading structure (skipping from h1 to h3) -->
+    <main id="main-content">
+        <!-- Proper heading hierarchy -->
         <h1>Welcome to ACME Corporation</h1>
-        <h3>Your One-Stop Solution Provider</h3>
+        <h2>Your One-Stop Solution Provider</h2>
         
-        <!-- Missing alt text on image -->
-        <img src="https://placehold.co/800x400" class="hero-image">
+        <!-- Hero image with descriptive alt text -->
+        <img src="https://placehold.co/800x400" class="hero-image" alt="ACME Corporation office building with modern architecture and glass facade">
         
         <section class="features">
-            <!-- Use of color only to convey information -->
+            <!-- Status indicators with both color and text -->
             <div class="feature">
-                <span class="status-dot available"></span>
-                <h5>Premium Plan</h5>
+                <span class="status-dot available" aria-label="Available"></span>
+                <span class="status-text">Available</span>
+                <h3>Premium Plan</h3>
                 <p>Our most popular offering with all the features you need.</p>
             </div>
             <div class="feature">
-                <span class="status-dot unavailable"></span>
-                <h5>Enterprise Solution</h5>
+                <span class="status-dot unavailable" aria-label="Unavailable"></span>
+                <span class="status-text">Unavailable</span>
+                <h3>Enterprise Solution</h3>
                 <p>Custom solutions for large businesses.</p>
             </div>
             <div class="feature">
-                <span class="status-dot coming-soon"></span>
-                <h5>Mobile Platform</h5>
+                <span class="status-dot coming-soon" aria-label="Coming Soon"></span>
+                <span class="status-text">Coming Soon</span>
+                <h3>Mobile Platform</h3>
                 <p>Access our services on the go.</p>
             </div>
         </section>
         
         <!-- Poor color contrast in this section -->
         <section class="poor-contrast">
-            <h4>Limited Time Offer!</h4>
+            <h3>Limited Time Offer!</h3>
             <p>Sign up today and get 25% off your first purchase.</p>
             <button>Learn More</button>
         </section>
         
-        <!-- Inaccessible form with no labels -->
+        <!-- Accessible contact form with proper labels -->
         <section class="contact-form">
             <h2>Contact Us</h2>
             <form>
-                <!-- No labels for form fields -->
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email Address">
-                <select>
+                <label for="contact-name">Full Name</label>
+                <input type="text" id="contact-name" name="name" placeholder="Full Name" required aria-required="true">
+                
+                <label for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" name="email" placeholder="Email Address" required aria-required="true">
+                
+                <label for="contact-topic">Topic</label>
+                <select id="contact-topic" name="topic" required aria-required="true">
                     <option value="" disabled selected>Select a topic</option>
                     <option value="support">Customer Support</option>
                     <option value="sales">Sales Inquiry</option>
                     <option value="other">Other</option>
                 </select>
-                <textarea placeholder="Your Message"></textarea>
-                <!-- Non-semantic button with no ARIA role -->
-                <div class="submit-btn">Submit</div>
+                
+                <label for="contact-message">Your Message</label>
+                <textarea id="contact-message" name="message" placeholder="Your Message" required aria-required="true"></textarea>
+                
+                <!-- Semantic button element -->
+                <button type="submit" class="submit-btn">Submit</button>
             </form>
         </section>
         
-        <!-- Interactive elements that aren't keyboard accessible -->
+        <!-- Accessible carousel with keyboard navigation -->
         <section class="gallery">
-            <h4>Our Projects</h4>
-            <div class="carousel">
-                <!-- Custom carousel with mouse-only interaction -->
-                <div class="carousel-item active">
-                    <!-- Another image missing alt text -->
-                    <img src="https://placehold.co/300x200">
+            <h3>Our Projects</h3>
+            <div class="carousel" role="region" aria-label="Project gallery carousel">
+                <!-- Carousel items with proper ARIA attributes -->
+                <div class="carousel-item active" role="tabpanel" aria-label="Project Alpha slide">
+                    <!-- Carousel images with descriptive alt text -->
+                    <img src="https://placehold.co/300x200" alt="Project Alpha: Modern e-commerce website interface">
                     <div class="info">Project Alpha</div>
                 </div>
-                <div class="carousel-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="carousel-item" role="tabpanel" aria-label="Project Beta slide">
+                    <img src="https://placehold.co/300x200" alt="Project Beta: Mobile banking application dashboard">
                     <div class="info">Project Beta</div>
                 </div>
-                <div class="carousel-item">
-                    <img src="https://placehold.co/300x200">
+                <div class="carousel-item" role="tabpanel" aria-label="Project Gamma slide">
+                    <img src="https://placehold.co/300x200" alt="Project Gamma: Corporate website redesign">
                     <div class="info">Project Gamma</div>
                 </div>
-                <div class="carousel-nav">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                <div class="carousel-nav" role="tablist" aria-label="Carousel navigation">
+                    <button role="tab" class="dot active" aria-label="Go to slide 1: Project Alpha" aria-selected="true" tabindex="0"></button>
+                    <button role="tab" class="dot" aria-label="Go to slide 2: Project Beta" aria-selected="false" tabindex="-1"></button>
+                    <button role="tab" class="dot" aria-label="Go to slide 3: Project Gamma" aria-selected="false" tabindex="-1"></button>
                 </div>
             </div>
         </section>
         
-        <!-- Dynamic content that isn't announced to assistive technologies -->
+        <!-- Dynamic content with proper accessibility announcements -->
         <section class="notifications">
-            <h4>Notifications</h4>
-            <div id="notification-area">
-                <!-- Notifications will be dynamically added here without ARIA live regions -->
+            <h3>Notifications</h3>
+            <div id="notification-area" aria-live="polite" aria-label="Notification messages">
+                <!-- Notifications will be dynamically added here with ARIA live region -->
             </div>
             <button id="add-notification">Show New Notification</button>
         </section>
@@ -114,11 +124,11 @@
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h4>About Us</h4>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -126,13 +136,21 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- Social media icons without proper labels -->
+                <h4>Follow Us</h4>
+                <!-- Social media icons with accessible labels -->
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Follow us on Facebook">
+                        <span class="sr-only">Facebook</span>
+                    </a>
+                    <a href="#" class="icon twitter" aria-label="Follow us on Twitter">
+                        <span class="sr-only">Twitter</span>
+                    </a>
+                    <a href="#" class="icon instagram" aria-label="Follow us on Instagram">
+                        <span class="sr-only">Instagram</span>
+                    </a>
+                    <a href="#" class="icon linkedin" aria-label="Follow us on LinkedIn">
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
                 </div>
             </div>
         </div>

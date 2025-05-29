@@ -1,35 +1,70 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Carousel functionality - Keyboard inaccessible
+    // Accessible carousel functionality with keyboard support
     const dots = document.querySelectorAll('.carousel .dot');
     const items = document.querySelectorAll('.carousel-item');
     
-    // Add click event listeners to carousel dots
+    // Add click and keyboard event listeners to carousel dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            // Remove active class from all dots and items
-            dots.forEach(d => d.classList.remove('active'));
-            items.forEach(item => item.classList.remove('active'));
-            
-            // Add active class to current dot and item
-            dot.classList.add('active');
-            items[index].classList.add('active');
+            goToSlide(index);
         });
         
-        // Intentionally not adding keyboard navigation for the carousel
+        // Add keyboard navigation for carousel
+        dot.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    const prevIndex = (index - 1 + dots.length) % dots.length;
+                    dots[prevIndex].focus();
+                    goToSlide(prevIndex);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    const nextIndex = (index + 1) % dots.length;
+                    dots[nextIndex].focus();
+                    goToSlide(nextIndex);
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    dots[0].focus();
+                    goToSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    dots[dots.length - 1].focus();
+                    goToSlide(dots.length - 1);
+                    break;
+            }
+        });
     });
     
-    // Non-semantic button click handling
-    const submitBtn = document.querySelector('.submit-btn');
-    if (submitBtn) {
-        submitBtn.addEventListener('click', () => {
-            alert('Form submitted!');
+    function goToSlide(targetIndex) {
+        // Remove active class from all dots and items
+        dots.forEach((d, i) => {
+            d.classList.remove('active');
+            d.setAttribute('aria-selected', 'false');
+            d.setAttribute('tabindex', '-1');
         });
+        items.forEach(item => item.classList.remove('active'));
         
-        // No keyboard event handling for the custom button
+        // Add active class to current dot and item
+        dots[targetIndex].classList.add('active');
+        dots[targetIndex].setAttribute('aria-selected', 'true');
+        dots[targetIndex].setAttribute('tabindex', '0');
+        items[targetIndex].classList.add('active');
     }
     
-    // Dynamic content that isn't announced to screen readers
+    // Semantic button click handling
+    const submitBtn = document.querySelector('.submit-btn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Form submitted!');
+        });
+    }
+    
+    // Dynamic content that is properly announced to screen readers
     const notificationBtn = document.getElementById('add-notification');
     const notificationArea = document.getElementById('notification-area');
     let notificationCount = 0;
@@ -39,14 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
             notificationCount++;
             const notification = document.createElement('div');
             notification.className = 'notification';
+            notification.setAttribute('role', 'alert');
             notification.textContent = `New notification #${notificationCount}: This content was added dynamically.`;
             
-            // No ARIA live region or role="alert" to announce this to screen readers
+            // ARIA live region will announce this to screen readers
             notificationArea.appendChild(notification);
         });
     }
     
-    // Simulating a popup that would be inaccessible to screen readers
+    // Accessible popup with proper focus management
     setTimeout(() => {
         const popup = document.createElement('div');
         popup.style.position = 'fixed';
@@ -58,16 +94,30 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.style.borderRadius = '5px';
         popup.style.zIndex = '1000';
         popup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-        popup.innerHTML = 'Cookie Notice: This site uses cookies. <span style="cursor:pointer;text-decoration:underline;">Accept</span>';
+        popup.setAttribute('role', 'dialog');
+        popup.setAttribute('aria-labelledby', 'cookie-title');
+        popup.innerHTML = `
+            <div id="cookie-title">Cookie Notice</div>
+            <div>This site uses cookies.</div>
+            <button id="cookie-accept" style="background: #4a90e2; color: white; border: none; padding: 5px 10px; margin-top: 10px; border-radius: 3px; cursor: pointer;">Accept</button>
+        `;
         
-        // No ARIA roles, no focus management, not keyboard accessible
+        // Focus management and keyboard accessibility
         document.body.appendChild(popup);
         
-        // Close button that's only clickable
-        const acceptSpan = popup.querySelector('span');
-        if (acceptSpan) {
-            acceptSpan.addEventListener('click', () => {
+        const acceptBtn = popup.querySelector('#cookie-accept');
+        if (acceptBtn) {
+            acceptBtn.focus(); // Focus the accept button
+            
+            acceptBtn.addEventListener('click', () => {
                 document.body.removeChild(popup);
+            });
+            
+            // Allow escape key to close
+            acceptBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.body.removeChild(popup);
+                }
             });
         }
     }, 3000);
