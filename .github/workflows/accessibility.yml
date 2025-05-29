@@ -32,6 +32,12 @@ jobs:
           sudo apt-get update && sudo apt-get install -y chromium jq
           sudo ln -s /usr/bin/chromium /usr/bin/google-chrome
         
+      - name: Install browser-driver-manager
+        run: npm install -g browser-driver-manager
+
+      - name: Install compatible Chrome and ChromeDriver
+        run: npx browser-driver-manager install chrome
+        
       - name: Start HTTP server in background
         run: http-server -p 8080 . &
         

@@ -76,11 +76,11 @@ To run the same accessibility tests locally:
    ```
 3. Start a local server in the repository root:
    ```bash
-   http-server -p 8080 .
+   http-server -p 5500 .
    ```
 4. In another terminal, run the accessibility tests:
    ```bash
-   axe http://localhost:8080 --exit
+   axe http://localhost:5500 --exit
    ```
 
 ### 🔧 Running Tests with Accessibility Insights
