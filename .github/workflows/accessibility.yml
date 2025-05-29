@@ -15,40 +15,48 @@ permissions:
 jobs:
   axe:
     name: Test with axe-core
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     steps:
-      - name: Checkout repository
+      - name: "🔄 Checkout repository"
         uses: actions/checkout@v4
         
-      - name: Set up Node.js
+      - name: "🟢 Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           
-      - name: Install dependencies
+      - name: "💾 Cache npm global"
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-global-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-global-
+        
+      - name: "📦 Install dependencies"
         run: |
           npm install -g @axe-core/cli http-server
           sudo apt-get update && sudo apt-get install -y chromium jq
         
-      - name: Install browser-driver-manager
+      - name: "🧰 Install browser-driver-manager"
         run: npm install -g browser-driver-manager
 
-      - name: Install compatible Chrome and ChromeDriver
+      - name: "🌐 Install compatible Chrome and ChromeDriver"
         run: npx browser-driver-manager install chrome
         
-      - name: Start HTTP server in background
+      - name: "🚀 Start HTTP server in background"
         run: http-server -p 5500 . &
         
-      - name: Wait for server to start
+      - name: "⏳ Wait for server to start"
         run: sleep 3
         
-      - name: Kill Chrome/Chromium processes (cleanup)
+      - name: "🧹 Kill Chrome/Chromium processes (cleanup)"
         run: |
           pkill -f chromium || true
           pkill -f chrome || true
 
-      - name: Run axe-core accessibility tests
+      - name: "🦾 Run axe-core accessibility tests"
         continue-on-error: true
         run: |
           echo "🔍 Running accessibility tests with axe-core..."
@@ -57,7 +65,7 @@ jobs:
           cat axe-results.json | grep -A 10 '"violations":'
           echo "❌ Full details are available in the axe-results.json artifact"
         
-      - name: Parse accessibility results for PR comment
+      - name: "📝 Parse accessibility results for PR comment"
         if: github.event_name == 'pull_request'
         id: parse-results
         run: |
@@ -80,7 +88,7 @@ jobs:
             echo "has_violations=false" >> $GITHUB_OUTPUT
           fi
         
-      - name: Comment on PR with accessibility results
+      - name: "💬 Comment on PR with accessibility results"
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
@@ -136,7 +144,7 @@ jobs:
               });
             }
         
-      - name: Upload accessibility results
+      - name: "📤 Upload accessibility results"
         if: always()
         uses: actions/upload-artifact@v4.6.2
         with:
@@ -144,7 +152,7 @@ jobs:
           path: axe-results.json
           retention-days: 7
         
-      - name: Fail workflow if accessibility violations found
+      - name: "🚫 Fail workflow if accessibility violations found"
         if: always()
         run: |
           if [ -f axe-results.json ]; then
@@ -161,6 +169,6 @@ jobs:
             exit 1
           fi
         
-      - name: Stop HTTP server
+      - name: "🛑 Stop HTTP server"
         if: always()
         run: killall node || true
