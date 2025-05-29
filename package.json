@@ -1,0 +1,12 @@
+{
+  "name": "github-copilot-loves-accesibility",
+  "version": "1.0.0",
+  "description": "👋 This repository contains a demo web page that intentionally implements bad accessibility practices. It's designed to be used in accessibility awareness workshops and training sessions to showcase common mistakes developers make when accessibility is not a priority.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
