@@ -154,7 +154,7 @@ main {
 }
 
 .poor-contrast button {
-    background-color: #007bff; /* Blue with proper contrast */
+    background-color: #0056b3; /* Darker blue for 4.5:1 contrast ratio */
     color: #ffffff; /* White text for high contrast */
     border: none;
     padding: 0.75rem 1.5rem;
@@ -164,12 +164,12 @@ main {
 }
 
 .poor-contrast button:hover {
-    background-color: #0056b3;
+    background-color: #004085;
 }
 
 .poor-contrast button:focus {
-    background-color: #0056b3;
-    outline: 2px solid #007bff;
+    background-color: #004085;
+    outline: 2px solid #0056b3;
     outline-offset: 2px;
 }
 
@@ -420,7 +420,7 @@ th {
 /* Semantic button styling */
 .submit-btn {
     display: inline-block;
-    background-color: #4a90e2;
+    background-color: #357abd; /* Darker blue for 4.5:1 contrast ratio */
     color: white;
     padding: 0.75rem;
     text-align: center;
@@ -432,12 +432,12 @@ th {
 }
 
 .submit-btn:hover {
-    background-color: #357abd;
+    background-color: #2a5d87;
 }
 
 .submit-btn:focus {
-    background-color: #357abd;
-    outline: 2px solid #4a90e2;
+    background-color: #2a5d87;
+    outline: 2px solid #357abd;
     outline-offset: 2px;
 }
 
