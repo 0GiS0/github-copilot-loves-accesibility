@@ -26,10 +26,23 @@ jobs:
         with:
           node-version: '18'
           
+      - name: Install Chrome and ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -1)
+          echo "Chrome version: $CHROME_VERSION"
+          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
+          echo "ChromeDriver version: $CHROMEDRIVER_VERSION"
+          wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          chromedriver --version
+          
       - name: Install dependencies
         run: |
           npm install -g @axe-core/cli http-server
-          sudo apt-get update && sudo apt-get install -y jq
+          sudo apt-get install -y jq
         
       - name: Start HTTP server in background
         run: http-server -p 8080 . &
