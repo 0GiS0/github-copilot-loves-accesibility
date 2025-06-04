@@ -4,7 +4,7 @@
 
 You can find this as part of one of my videos on YouTube—check it out on my channel!
 
-![DESARROLLOS ACCESIBLES CON GITHUB COPILOT](https://github.com/user-attachments/assets/529f8f05-47dc-419c-b63d-23cc80a40a7f)
+[![DESARROLLOS ACCESIBLES CON GITHUB COPILOT](https://github.com/user-attachments/assets/529f8f05-47dc-419c-b63d-23cc80a40a7f)](https://youtu.be/scuLmec8LmY)
 
 
 ## 🚨 Demo of Accessibility Pitfalls
