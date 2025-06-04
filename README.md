@@ -2,6 +2,11 @@
 
 👋 This repository contains a demo web page that intentionally implements bad accessibility practices. It's designed to be used in accessibility awareness workshops and training sessions to showcase common mistakes developers make when accessibility is not a priority.
 
+You can find this as part of one of my videos on YouTube—check it out on my channel!
+
+![DESARROLLOS ACCESIBLES CON GITHUB COPILOT](https://github.com/user-attachments/assets/529f8f05-47dc-419c-b63d-23cc80a40a7f)
+
+
 ## 🚨 Demo of Accessibility Pitfalls
 
 The demo page in this repository intentionally includes the following accessibility issues:
