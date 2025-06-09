@@ -7,6 +7,32 @@ body {
     outline: none;
 }
 
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    background: #005a9e;
+    color: #fff;
+    padding: 0.5em 1em;
+    z-index: 1000;
+}
+.skip-link:focus {
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    outline: 2px solid #222;
+}
+
+/* Restore focus indicators for accessibility */
+a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
+    outline: 2px solid #005a9e;
+    box-shadow: 0 0 2px 2px #b3d4fc;
+}
+
 /* Remove focus indicators from all interactive elements */
 a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
     outline: none;
@@ -104,6 +130,15 @@ main {
     border-radius: 5px;
 }
 
+.poor-contrast h4, .poor-contrast h2, .poor-contrast p, .poor-contrast button {
+    color: #222 !important;
+    background-color: #fff !important;
+}
+.poor-contrast button {
+    background-color: #005a9e !important;
+    color: #fff !important;
+}
+
 .poor-contrast h4 {
     color: #d3d3d3; /* Light gray on light gray background - poor contrast */
     margin-top: 0;
@@ -116,10 +151,6 @@ main {
 .poor-contrast button {
     background-color: #e0e0e0; /* Light gray */
     color: #a9a9a9; /* Gray text on light gray button - poor contrast */
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 3px;
-    cursor: pointer;
 }
 
 /* Contact form section */
@@ -148,12 +179,14 @@ main {
 /* Non-semantic button - no focus states */
 .submit-btn {
     display: inline-block;
-    background-color: #4a90e2;
-    color: white;
+    background-color: #005a9e;
+    color: #fff;
     padding: 0.75rem;
     text-align: center;
     cursor: pointer;
     border-radius: 3px;
+    font-weight: bold;
+    /* Ensure high contrast */
 }
 
 /* Carousel/Gallery section */
