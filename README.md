@@ -1,147 +1,149 @@
 # ♿ GitHub Copilot Loves Accessibility
 
-👋 This repository contains a demo web page that intentionally implements bad accessibility practices. It's designed to be used in accessibility awareness workshops and training sessions to showcase common mistakes developers make when accessibility is not a priority.
+**Español | [English](README_EN.md)**
 
-You can find this as part of one of my videos on YouTube—check it out on my channel!
+👋 Este repositorio contiene una página web de demostración que implementa intencionalmente malas prácticas de accesibilidad. Está diseñado para ser utilizado en talleres de concientización sobre accesibilidad y sesiones de capacitación para mostrar errores comunes que cometen los desarrolladores cuando la accesibilidad no es una prioridad.
+
+¡Puedes encontrar esto como parte de uno de mis videos en YouTube, échale un vistazo a mi canal!
 
 [![DESARROLLOS ACCESIBLES CON GITHUB COPILOT](https://github.com/user-attachments/assets/529f8f05-47dc-419c-b63d-23cc80a40a7f)](https://youtu.be/scuLmec8LmY)
 
 
-## 🚨 Demo of Accessibility Pitfalls
+## 🚨 Demostración de Problemas de Accesibilidad
 
-The demo page in this repository intentionally includes the following accessibility issues:
+La página de demostración en este repositorio incluye intencionalmente los siguientes problemas de accesibilidad:
 
-- 🚫 **Missing alt text on images**: The images don't have alt attributes, making them inaccessible to screen reader users.
-- 👀 **Poor color contrast**: Some text has low contrast with its background, making it difficult to read for people with low vision.
-- ⌨️ **No focus indicators**: Interactive elements don't show visual focus indicators, making it impossible to navigate via keyboard.
-- 📋 **Inaccessible forms**: Form fields lack proper labels and ARIA attributes.
-- 🔇 **Interactive elements that don't work with screen readers**: Custom UI components that aren't built with accessibility in mind.
-- 🎨 **Use of only color to convey information**: Status indicators that rely solely on color differences.
-- 🔄 **Inconsistent or illogical heading structure**: Heading levels skip from h1 to h3, then to h4, h5, and h6.
-- 🌐 **No lang attribute in the HTML tag**: Missing language declaration.
-- 📢 **Dynamic content not announced to assistive technologies**: No ARIA live regions for dynamically added content.
-- ⏭️ **No skip link**: No way to bypass repetitive navigation menus.
+- 🚫 **Texto alternativo faltante en imágenes**: Las imágenes no tienen atributos alt, haciéndolas inaccesibles para usuarios de lectores de pantalla.
+- 👀 **Contraste de color pobre**: Algunos textos tienen bajo contraste con su fondo, dificultando la lectura para personas con baja visión.
+- ⌨️ **Sin indicadores de enfoque**: Los elementos interactivos no muestran indicadores visuales de enfoque, imposibilitando la navegación por teclado.
+- 📋 **Formularios inaccesibles**: Los campos de formulario carecen de etiquetas apropiadas y atributos ARIA.
+- 🔇 **Elementos interactivos que no funcionan con lectores de pantalla**: Componentes de UI personalizados que no están construidos con accesibilidad en mente.
+- 🎨 **Uso solo de color para transmitir información**: Indicadores de estado que dependen únicamente de diferencias de color.
+- 🔄 **Estructura de encabezados inconsistente o ilógica**: Los niveles de encabezado saltan de h1 a h3, luego a h4, h5 y h6.
+- 🌐 **Sin atributo lang en la etiqueta HTML**: Falta la declaración de idioma.
+- 📢 **Contenido dinámico no anunciado a tecnologías de asistencia**: Sin regiones ARIA live para contenido agregado dinámicamente.
+- ⏭️ **Sin enlace de salto**: No hay forma de omitir menús de navegación repetitivos.
 
-## 📝 How to Use This Demo
+## 📝 Cómo Usar Esta Demostración
 
-1. Open `index.html` in your browser to view the inaccessible page.
-2. Try navigating the page using only your keyboard (Tab key).
-3. If possible, test the page using a screen reader.
-4. Use browser developer tools to inspect accessibility issues.
+1. Abre `index.html` en tu navegador para ver la página inaccesible.
+2. Intenta navegar la página usando solo tu teclado (tecla Tab).
+3. Si es posible, prueba la página usando un lector de pantalla.
+4. Usa las herramientas de desarrollador del navegador para inspeccionar problemas de accesibilidad.
 
-## 🧪 Manual Accessibility Testing with Accessibility Insights
+## 🧪 Pruebas Manuales de Accesibilidad con Accessibility Insights
 
-[Accessibility Insights](https://accessibilityinsights.io/) is the recommended tool for manual accessibility verification of this demo page. It helps identify accessibility issues that automated tests might miss and provides guidance on fixing them.
+[Accessibility Insights](https://accessibilityinsights.io/) es la herramienta recomendada para la verificación manual de accesibilidad de esta página de demostración. Ayuda a identificar problemas de accesibilidad que las pruebas automatizadas podrían pasar por alto y proporciona orientación sobre cómo solucionarlos.
 
-### 🔍 Installing Accessibility Insights
+### 🔍 Instalando Accessibility Insights
 
-1. **Accessibility Insights for Web** (recommended for this demo):
-   - Install the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni) or [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/accessibility-insights-fo/nlgdhundjgnlbnjacdfdgpbmnjdpkged)
-   - Once installed, you'll see the Accessibility Insights icon in your browser toolbar
+1. **Accessibility Insights for Web** (recomendado para esta demostración):
+   - Instala la extensión desde [Chrome Web Store](https://chrome.google.com/webstore/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni) o [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/accessibility-insights-fo/nlgdhundjgnlbnjacdfdgpbmnjdpkged)
+   - Una vez instalado, verás el ícono de Accessibility Insights en la barra de herramientas de tu navegador
 
-2. For other platforms, visit [accessibilityinsights.io](https://accessibilityinsights.io/) to download:
+2. Para otras plataformas, visita [accessibilityinsights.io](https://accessibilityinsights.io/) para descargar:
    - Accessibility Insights for Windows
    - Accessibility Insights for Android
 
-## 🤖 Automated Accessibility Testing with GitHub Actions
+## 🤖 Pruebas Automatizadas de Accesibilidad con GitHub Actions
 
-This repository includes an automated accessibility testing workflow using axe-core, which runs on every push to the main branch and on pull requests.
+Este repositorio incluye un flujo de trabajo de pruebas de accesibilidad automatizadas usando axe-core, que se ejecuta en cada push a la rama principal y en pull requests.
 
-### 📋 About the Accessibility Tests
+### 📋 Acerca de las Pruebas de Accesibilidad
 
-The automated tests:
-- Use axe-core, a leading accessibility testing engine
-- Check the deployed web page for WCAG 2.1 compliance issues
-- Generate detailed reports of any accessibility violations
-- Comment on pull requests with accessibility test results
-- Fail the workflow if critical accessibility issues are found
+Las pruebas automatizadas:
+- Usan axe-core, un motor de pruebas de accesibilidad líder
+- Verifican la página web desplegada en busca de problemas de cumplimiento WCAG 2.1
+- Generan informes detallados de cualquier violación de accesibilidad
+- Comentan en pull requests con resultados de pruebas de accesibilidad
+- Fallan el flujo de trabajo si se encuentran problemas críticos de accesibilidad
 
-### 📊 Viewing Test Results
+### 📊 Visualizando Resultados de Pruebas
 
-**For Pull Requests:**
-- The workflow automatically comments on PRs with accessibility test results
-- Comments include a summary of violations and actionable next steps
-- Comments are updated if the tests are run again on the same PR
+**Para Pull Requests:**
+- El flujo de trabajo comenta automáticamente en PRs con resultados de pruebas de accesibilidad
+- Los comentarios incluyen un resumen de violaciones y próximos pasos accionables
+- Los comentarios se actualizan si las pruebas se ejecutan nuevamente en el mismo PR
 
-**For detailed analysis:**
-1. Navigate to the "Actions" tab in the GitHub repository
-2. Select the "Accessibility Testing" workflow
-3. Choose the most recent workflow run
-4. Review the test output in the "Run axe-core accessibility tests" step
-5. Download the detailed JSON report from the "Artifacts" section
+**Para análisis detallado:**
+1. Navega a la pestaña "Actions" en el repositorio de GitHub
+2. Selecciona el flujo de trabajo "Accessibility Testing"
+3. Elige la ejecución más reciente del flujo de trabajo
+4. Revisa la salida de prueba en el paso "Run axe-core accessibility tests"
+5. Descarga el informe JSON detallado desde la sección "Artifacts"
 
-### 🔄 Running Tests Locally
+### 🔄 Ejecutando Pruebas Localmente
 
-To run the same accessibility tests locally:
+Para ejecutar las mismas pruebas de accesibilidad localmente:
 
-1. Install Node.js and npm
-2. Install the required tools:
+1. Instala Node.js y npm
+2. Instala las herramientas requeridas:
    ```bash
    npm install -g @axe-core/cli http-server
    ```
-3. Start a local server in the repository root:
+3. Inicia un servidor local en la raíz del repositorio:
    ```bash
    http-server -p 5500 .
    ```
-4. In another terminal, run the accessibility tests:
+4. En otra terminal, ejecuta las pruebas de accesibilidad:
    ```bash
    axe http://localhost:5500 --exit
    ```
 
-### 🔧 Running Tests with Accessibility Insights
+### 🔧 Ejecutando Pruebas con Accessibility Insights
 
-After installing Accessibility Insights for Web:
+Después de instalar Accessibility Insights for Web:
 
-1. **FastPass** (quick assessment):
-   - Click the Accessibility Insights icon in your browser toolbar
-   - Select "FastPass" from the menu
-   - Click "Start" to scan the current page
-   - Review automated checks and tab stops results
+1. **FastPass** (evaluación rápida):
+   - Haz clic en el ícono de Accessibility Insights en la barra de herramientas de tu navegador
+   - Selecciona "FastPass" del menú
+   - Haz clic en "Start" para escanear la página actual
+   - Revisa las verificaciones automáticas y los resultados de tab stops
 
-2. **Assessment** (comprehensive evaluation):
-   - Click the Accessibility Insights icon
-   - Select "Assessment" from the menu
-   - Click "Start assessment" 
-   - Follow the guided process to perform manual checks
-   - Complete all test steps for a thorough evaluation
+2. **Assessment** (evaluación integral):
+   - Haz clic en el ícono de Accessibility Insights
+   - Selecciona "Assessment" del menú
+   - Haz clic en "Start assessment"
+   - Sigue el proceso guiado para realizar verificaciones manuales
+   - Completa todos los pasos de prueba para una evaluación exhaustiva
 
-3. **Ad hoc tools** (focused testing):
-   - Click the Accessibility Insights icon
-   - Select specific tools like "Color", "Headings", or "Landmarks"
-   - These tools help analyze specific aspects of the page
+3. **Ad hoc tools** (pruebas enfocadas):
+   - Haz clic en el ícono de Accessibility Insights
+   - Selecciona herramientas específicas como "Color", "Headings" o "Landmarks"
+   - Estas herramientas ayudan a analizar aspectos específicos de la página
 
-### 📊 Interpreting Results
+### 📊 Interpretando Resultados
 
-- **Failures:** Review each failed check to understand what accessibility issues exist
-- **Instances:** Examine specific elements that are causing accessibility problems
-- **How to fix:** Follow the provided guidance to address each issue
-- **Why it matters:** Learn why each issue is important for accessibility
+- **Fallas:** Revisa cada verificación fallida para entender qué problemas de accesibilidad existen
+- **Instancias:** Examina elementos específicos que están causando problemas de accesibilidad
+- **Cómo solucionarlo:** Sigue la orientación proporcionada para abordar cada problema
+- **Por qué importa:** Aprende por qué cada problema es importante para la accesibilidad
 
-### ⏱️ When to Perform Manual Verification
+### ⏱️ Cuándo Realizar Verificación Manual
 
-- During development when implementing or modifying UI components
-- Before submitting a pull request that includes UI changes
-- As part of code review for UI-related changes
-- After fixing automated accessibility test failures
-- Before major releases or deployments
+- Durante el desarrollo al implementar o modificar componentes de UI
+- Antes de enviar un pull request que incluya cambios de UI
+- Como parte de la revisión de código para cambios relacionados con UI
+- Después de corregir fallas de pruebas automatizadas de accesibilidad
+- Antes de lanzamientos importantes o despliegues
 
-### 💻 Using Dev Container
+### 💻 Usando Dev Container
 
-This repository includes a dev container configuration with Live Server extension:
+Este repositorio incluye una configuración de dev container con la extensión Live Server:
 
-1. Open the repository in Visual Studio Code with the Dev Containers extension installed.
-2. When prompted, click "Reopen in Container" or use the command palette: `Dev Containers: Reopen in Container`.
-3. Once the container is built and running, click "Go Live" in the status bar to start the Live Server.
-4. The page will automatically open in your browser and refresh when changes are made.
+1. Abre el repositorio en Visual Studio Code con la extensión Dev Containers instalada.
+2. Cuando se te solicite, haz clic en "Reopen in Container" o usa la paleta de comandos: `Dev Containers: Reopen in Container`.
+3. Una vez que el contenedor esté construido y ejecutándose, haz clic en "Go Live" en la barra de estado para iniciar Live Server.
+4. La página se abrirá automáticamente en tu navegador y se actualizará cuando se realicen cambios.
 
 ### 🌐 GitHub Pages
 
-This demo is available on GitHub Pages once the GitHub Actions workflow has completed. The site will be deployed at: https://0GiS0.github.io/github-copilot-loves-accesibility/
+Esta demostración está disponible en GitHub Pages una vez que el flujo de trabajo de GitHub Actions haya completado. El sitio se desplegará en: https://0GiS0.github.io/github-copilot-loves-accesibility/
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-This demo is intended to be used as an educational tool to help developers understand common accessibility mistakes and the importance of designing and building with accessibility in mind from the start.
+Esta demostración está destinada a ser utilizada como una herramienta educativa para ayudar a los desarrolladores a entender errores comunes de accesibilidad y la importancia de diseñar y construir con accesibilidad en mente desde el inicio.
 
-## ⚠️ Disclaimer
+## ⚠️ Descargo de Responsabilidad
 
-This project intentionally violates accessibility best practices for educational purposes. The code in this repository should not be used as a reference for building accessible web applications.
+Este proyecto viola intencionalmente las mejores prácticas de accesibilidad con fines educativos. El código en este repositorio no debe usarse como referencia para construir aplicaciones web accesibles.
