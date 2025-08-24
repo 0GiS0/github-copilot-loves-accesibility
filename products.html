@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="logo">ACME Corp</div>
         <nav>
@@ -22,153 +21,116 @@
         </nav>
     </header>
 
-    <main>
-        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h4 -->
+    <main id="main-content">
         <h1>Our Products</h1>
-        <h4>Innovative Solutions for Modern Businesses</h4>
-        
-        <!-- ACCESSIBILITY ISSUE: Hero image without alt text -->
-        <img src="https://placehold.co/800x300" class="hero-image">
-        
-        <!-- ACCESSIBILITY ISSUE: Using color-only indicators to convey product status -->
+        <h2>Innovative Solutions for Modern Businesses</h2>
+        <img src="https://placehold.co/800x300" class="hero-image" alt="ACME Products banner">
         <section class="product-categories">
             <h2>Product Categories</h2>
             <div class="features">
-                <!-- ACCESSIBILITY ISSUE: Status indicated by color only -->
                 <div class="feature">
-                    <span class="status-dot available"></span>
-                    <h5>Software Solutions</h5>
+                    <span class="status-dot available" aria-label="Available" title="Available"></span>
+                    <h3>Software Solutions</h3>
                     <p>Cutting-edge software for your business needs.</p>
-                    <!-- ACCESSIBILITY ISSUE: Links with unclear context -->
-                    <a href="#">Click here</a>
+                    <a href="#" aria-label="More about Software Solutions">Learn more about Software Solutions</a>
                 </div>
                 <div class="feature">
-                    <span class="status-dot unavailable"></span>
-                    <h5>Hardware Products</h5>
+                    <span class="status-dot unavailable" aria-label="Unavailable" title="Unavailable"></span>
+                    <h3>Hardware Products</h3>
                     <p>Professional-grade hardware equipment.</p>
-                    <!-- ACCESSIBILITY ISSUE: Another unclear link -->
-                    <a href="#">More info</a>
+                    <a href="#" aria-label="More about Hardware Products">Learn more about Hardware Products</a>
                 </div>
                 <div class="feature">
-                    <span class="status-dot coming-soon"></span>
-                    <h5>Cloud Services</h5>
+                    <span class="status-dot coming-soon" aria-label="Coming Soon" title="Coming Soon"></span>
+                    <h3>Cloud Services</h3>
                     <p>Scalable cloud infrastructure solutions.</p>
-                    <a href="#">Learn more</a>
+                    <a href="#" aria-label="More about Cloud Services">Learn more about Cloud Services</a>
                 </div>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Table without proper headers -->
         <section class="product-showcase">
-            <!-- ACCESSIBILITY ISSUE: Skipping heading levels h2 to h6 -->
-            <h6>Featured Products</h6>
-            
-            <!-- ACCESSIBILITY ISSUE: Table without proper th elements or scope attributes -->
+            <h2>Featured Products</h2>
             <table>
-                <tr>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Features</td>
-                    <td>Action</td>
-                </tr>
-                <tr>
-                    <!-- ACCESSIBILITY ISSUE: Images in table without alt text -->
-                    <td><img src="https://placehold.co/100x100"></td>
-                    <td>$99.99</td>
-                    <td>Feature A, Feature B, Feature C</td>
-                    <!-- ACCESSIBILITY ISSUE: Non-semantic button using div -->
-                    <td><div class="table-btn">Buy Now</div></td>
-                </tr>
-                <tr>
-                    <td><img src="https://placehold.co/100x100"></td>
-                    <td>$199.99</td>
-                    <td>Advanced Feature X, Feature Y</td>
-                    <td><div class="table-btn">Buy Now</div></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Features</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="https://placehold.co/100x100" alt="Product 1"></td>
+                        <td>$99.99</td>
+                        <td>Feature A, Feature B, Feature C</td>
+                        <td><button class="table-btn">Buy Now</button></td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://placehold.co/100x100" alt="Product 2"></td>
+                        <td>$199.99</td>
+                        <td>Advanced Feature X, Feature Y</td>
+                        <td><button class="table-btn">Buy Now</button></td>
+                    </tr>
+                </tbody>
             </table>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Custom controls without proper ARIA or keyboard navigation -->
         <section class="product-filters">
-            <h3>Filter Products</h3>
-            
-            <!-- ACCESSIBILITY ISSUE: Custom controls not accessible to keyboard users -->
-            <div class="filter-controls">
-                <!-- ACCESSIBILITY ISSUE: Custom checkbox without proper labeling or roles -->
-                <div class="custom-checkbox" onclick="toggleFilter('software')">
-                    <span class="checkbox-box"></span>
-                    Software
-                </div>
-                <div class="custom-checkbox" onclick="toggleFilter('hardware')">
-                    <span class="checkbox-box"></span>
-                    Hardware
-                </div>
-                <div class="custom-checkbox" onclick="toggleFilter('cloud')">
-                    <span class="checkbox-box"></span>
-                    Cloud
-                </div>
-                
-                <!-- ACCESSIBILITY ISSUE: Range slider without proper labeling -->
-                <div class="price-range">
-                    <input type="range" min="0" max="1000" value="500">
-                    <div>Price Range</div>
-                </div>
-            </div>
+            <h2>Filter Products</h2>
+            <form class="filter-controls" aria-label="Product Filters">
+                <label><input type="checkbox" name="software"> Software</label>
+                <label><input type="checkbox" name="hardware"> Hardware</label>
+                <label><input type="checkbox" name="cloud"> Cloud</label>
+                <label for="price-range">Price Range</label>
+                <input type="range" id="price-range" min="0" max="1000" value="500" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="500">
+            </form>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Poor color contrast section -->
         <section class="poor-contrast">
-            <h5>Special Pricing</h5>
-            <p>Limited time offer on selected products!</p>
-            <button>View Deals</button>
+            <h2 style="color:#222;">Special Pricing</h2>
+            <p style="color:#222;">Limited time offer on selected products!</p>
+            <button style="background-color:#005a9e;color:#fff;">View Deals</button>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Using divs instead of proper table structure -->
         <section class="product-comparison">
-            <h3>Compare Products</h3>
-            
-            <!-- ACCESSIBILITY ISSUE: Data table implemented with divs instead of table elements -->
-            <div class="comparison-table">
-                <div class="comparison-row">
-                    <div class="comparison-header">Feature</div>
-                    <div class="comparison-header">Basic Plan</div>
-                    <div class="comparison-header">Pro Plan</div>
-                    <div class="comparison-header">Enterprise</div>
-                </div>
-                <div class="comparison-row">
-                    <div>Storage Space</div>
-                    <div>10GB</div>
-                    <div>100GB</div>
-                    <div>Unlimited</div>
-                </div>
-                <div class="comparison-row">
-                    <div>Support</div>
-                    <!-- ACCESSIBILITY ISSUE: Using emoji/symbols without text alternatives -->
-                    <div>❌</div>
-                    <div>✅</div>
-                    <div>✅</div>
-                </div>
-            </div>
+            <h2>Compare Products</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Feature</th>
+                        <th scope="col">Basic Plan</th>
+                        <th scope="col">Pro Plan</th>
+                        <th scope="col">Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Storage Space</td>
+                        <td>10GB</td>
+                        <td>100GB</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td><span aria-label="Not available" title="Not available">❌</span></td>
+                        <td><span aria-label="Available" title="Available">✅</span></td>
+                        <td><span aria-label="Available" title="Available">✅</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Dynamic content without ARIA live regions -->
         <section class="dynamic-products">
-            <h4>Latest Products</h4>
-            <div id="product-container">
-                <!-- ACCESSIBILITY ISSUE: Products loaded here dynamically without announcements -->
-            </div>
+            <h2>Latest Products</h2>
+            <div id="product-container" aria-live="polite"></div>
             <button id="load-products">Load More Products</button>
         </section>
     </main>
-    
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h3>About Us</h3>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -176,19 +138,17 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- Social media icons without proper labels -->
+                <h3>Follow Us</h3>
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Facebook"></a>
+                    <a href="#" class="icon twitter" aria-label="Twitter"></a>
+                    <a href="#" class="icon instagram" aria-label="Instagram"></a>
+                    <a href="#" class="icon linkedin" aria-label="LinkedIn"></a>
                 </div>
             </div>
         </div>
         <p class="copyright">© 2023 ACME Corporation. All rights reserved.</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>

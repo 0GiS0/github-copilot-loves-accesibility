@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- ACCESSIBILITY ISSUE: Missing lang attribute for language declaration -->
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ACCESSIBILITY ISSUE: No skip link to bypass repetitive navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <div class="logo">ACME Corp</div>
         <nav>
@@ -22,115 +21,91 @@
         </nav>
     </header>
 
-    <main>
-        <!-- ACCESSIBILITY ISSUE: Inconsistent heading structure - skipping from h1 to h3 -->
+    <main id="main-content">
         <h1>Contact ACME Corporation</h1>
-        <h3>We'd Love to Hear From You</h3>
-        
-        <!-- ACCESSIBILITY ISSUE: Image without alt text -->
-        <img src="https://placehold.co/600x300" class="hero-image">
-        
-        <!-- ACCESSIBILITY ISSUE: Form lacks proper labels, uses only placeholders -->
+        <h2>We'd Love to Hear From You</h2>
+        <img src="https://placehold.co/600x300" class="hero-image" alt="Contact ACME Corporation banner">
         <section class="contact-form">
-            <h4>Get in Touch</h4>
+            <h2>Get in Touch</h2>
             <form>
-                <!-- ACCESSIBILITY ISSUE: No labels, relying only on placeholders -->
-                <input type="text" placeholder="Your Name">
-                <input type="email" placeholder="Email">
-                <input type="tel" placeholder="Phone Number">
-                
-                <!-- ACCESSIBILITY ISSUE: Select without proper labeling -->
-                <select>
+                <label for="your-name">Your Name</label>
+                <input type="text" id="your-name" name="your-name" placeholder="Your Name">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                <label for="how-hear">How did you hear about us?</label>
+                <select id="how-hear" name="how-hear">
                     <option value="" disabled selected>How did you hear about us?</option>
                     <option value="search">Search Engine</option>
                     <option value="social">Social Media</option>
                     <option value="referral">Referral</option>
                     <option value="ad">Advertisement</option>
                 </select>
-                
-                <!-- ACCESSIBILITY ISSUE: Required field not indicated accessibly -->
-                <input type="text" placeholder="Company Name (Required)" required>
-                
-                <!-- ACCESSIBILITY ISSUE: Checkbox without proper labeling -->
+                <label for="company">Company Name <span aria-hidden="true">*</span></label>
+                <input type="text" id="company" name="company" placeholder="Company Name (Required)" required aria-required="true">
                 <div>
-                    <input type="checkbox" id="newsletter">
-                    Subscribe to newsletter
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to newsletter</label>
                 </div>
-                
-                <!-- ACCESSIBILITY ISSUE: Radio buttons without proper grouping/fieldset -->
-                <div>
-                    <input type="radio" name="contact-time" value="morning">Morning
-                    <input type="radio" name="contact-time" value="afternoon">Afternoon
-                    <input type="radio" name="contact-time" value="evening">Evening
-                </div>
-                
-                <textarea placeholder="Your Message"></textarea>
-                
-                <!-- ACCESSIBILITY ISSUE: Non-semantic button using div instead of button element -->
-                <div class="submit-btn">Send Message</div>
+                <fieldset>
+                    <legend>Preferred contact time</legend>
+                    <input type="radio" id="morning" name="contact-time" value="morning">
+                    <label for="morning">Morning</label>
+                    <input type="radio" id="afternoon" name="contact-time" value="afternoon">
+                    <label for="afternoon">Afternoon</label>
+                    <input type="radio" id="evening" name="contact-time" value="evening">
+                    <label for="evening">Evening</label>
+                </fieldset>
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" placeholder="Your Message"></textarea>
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Poor color contrast in this section -->
         <section class="poor-contrast">
-            <h5>Contact Information</h5>
-            <p>Phone: 555-123-4567</p>
-            <p>Email: info@acmecorp.com</p>
-            <p>Address: 123 Business St, City, State 12345</p>
+            <h2 style="color:#222;">Contact Information</h2>
+            <p style="color:#222;">Phone: 555-123-4567</p>
+            <p style="color:#222;">Email: info@acmecorp.com</p>
+            <p style="color:#222;">Address: 123 Business St, City, State 12345</p>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Iframe without title attribute -->
         <section class="map-section">
-            <!-- ACCESSIBILITY ISSUE: Another heading level skip -->
             <h2>Find Us</h2>
-            
-            <!-- ACCESSIBILITY ISSUE: Iframe without title for screen readers -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4..." 
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
-            
-            <!-- ACCESSIBILITY ISSUE: Using color only to convey information -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4..." width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="ACME Corporation Location"></iframe>
             <div class="directions">
                 <div>
-                    <span class="direction-dot red"></span>
+                    <span class="direction-dot red" aria-label="Highway 1 North" title="Highway 1 North"></span>
                     Take Highway 1 North
                 </div>
                 <div>
-                    <span class="direction-dot green"></span>
+                    <span class="direction-dot green" aria-label="Business Boulevard" title="Business Boulevard"></span>
                     Exit at Business Boulevard
                 </div>
                 <div>
-                    <span class="direction-dot blue"></span>
+                    <span class="direction-dot blue" aria-label="Third building on the right" title="Third building on the right"></span>
                     We're in the third building on the right
                 </div>
             </div>
         </section>
-        
-        <!-- ACCESSIBILITY ISSUE: Custom interactive elements without keyboard navigation -->
         <section class="faq-section">
-            <h6>Frequently Asked Questions</h6>
-            
-            <!-- ACCESSIBILITY ISSUE: Custom accordion without proper ARIA attributes -->
+            <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(0)">What are your business hours?</div>
-                <div class="faq-answer" id="faq-0">Monday-Friday 9AM-5PM, Saturday 10AM-3PM</div>
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-0" onclick="toggleFAQ(0)">What are your business hours?</button>
+                <div class="faq-answer" id="faq-0" role="region" aria-live="polite">Monday-Friday 9AM-5PM, Saturday 10AM-3PM</div>
             </div>
-            
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(1)">Do you offer support?</div>
-                <div class="faq-answer" id="faq-1">Yes, we provide 24/7 customer support via phone and email.</div>
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-1" onclick="toggleFAQ(1)">Do you offer support?</button>
+                <div class="faq-answer" id="faq-1" role="region" aria-live="polite">Yes, we provide 24/7 customer support via phone and email.</div>
             </div>
         </section>
     </main>
-    
     <footer>
         <div class="columns">
             <div class="column">
-                <h6>About Us</h6>
+                <h3>About Us</h3>
                 <p>ACME Corporation is a leading provider of innovative solutions for businesses of all sizes.</p>
             </div>
             <div class="column">
-                <h6>Quick Links</h6>
+                <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
@@ -138,19 +113,17 @@
                 </ul>
             </div>
             <div class="column">
-                <h6>Follow Us</h6>
-                <!-- ACCESSIBILITY ISSUE: Social media icons without proper labels -->
+                <h3>Follow Us</h3>
                 <div class="social-icons">
-                    <a href="#" class="icon facebook"></a>
-                    <a href="#" class="icon twitter"></a>
-                    <a href="#" class="icon instagram"></a>
-                    <a href="#" class="icon linkedin"></a>
+                    <a href="#" class="icon facebook" aria-label="Facebook"></a>
+                    <a href="#" class="icon twitter" aria-label="Twitter"></a>
+                    <a href="#" class="icon instagram" aria-label="Instagram"></a>
+                    <a href="#" class="icon linkedin" aria-label="LinkedIn"></a>
                 </div>
             </div>
         </div>
         <p class="copyright">© 2023 ACME Corporation. All rights reserved.</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>

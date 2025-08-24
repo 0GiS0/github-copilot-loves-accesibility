@@ -86,6 +86,77 @@ document.addEventListener('DOMContentLoaded', function() {
             productContainer.appendChild(productDiv);
         });
     }
+    
+    // Carousel accessibility: allow keyboard navigation
+    const carouselDots = document.querySelectorAll('.carousel .dot, .carousel-indicators .indicator');
+    carouselDots.forEach((dot, index) => {
+        dot.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                dot.click();
+            }
+        });
+    });
+
+    // FAQ accessibility: toggle aria-expanded
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach((btn, idx) => {
+        btn.addEventListener('click', function() {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !expanded);
+        });
+        btn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                btn.click();
+            }
+        });
+    });
+
+    // Modal accessibility: focus management
+    const modal = document.getElementById('image-modal');
+    if (modal) {
+        const closeModalBtn = modal.querySelector('.close-modal');
+        closeModalBtn && closeModalBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    }
+
+    // Submit buttons: allow keyboard activation
+    const submitBtns = document.querySelectorAll('.submit-btn');
+    submitBtns.forEach(btn => {
+        btn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                btn.click();
+            }
+        });
+    });
+
+    // Focus trap for modal
+    window.openModal = function(index) {
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalCaption = document.getElementById('modal-caption');
+        
+        if (modal && modalImage && modalCaption) {
+            modalImage.src = galleryImages[index];
+            modalCaption.textContent = galleryTitles[index];
+            modal.style.display = 'flex';
+            
+            setTimeout(() => {
+                const closeBtn = modal.querySelector('.close-modal');
+                closeBtn && closeBtn.focus();
+            }, 100);
+        }
+    };
+    window.closeModal = function() {
+        const modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            // Restore focus to main content
+            document.getElementById('main-content')?.focus();
+        }
+    };
 });
 
 // Contact page FAQ functionality (inaccessible)
