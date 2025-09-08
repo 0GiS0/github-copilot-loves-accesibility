@@ -85,7 +85,7 @@ jobs:
           fi
       - name: "💬 Comment on PR with accessibility results"
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const violations = '${{ steps.parse-results.outputs.violations }}';
